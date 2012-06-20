@@ -10,7 +10,7 @@ Version: v1
 /*-------------------------------------------------------------------------------*/
 /*-------------------------------------------------------------------------------*/	
 /*-------------------------------------------------------------------------------*/
-/* Boilerplate */
+/* Social Base Theme */
 /*-------------------------------------------------------------------------------*/
 /*-------------------------------------------------------------------------------*/
 /*-------------------------------------------------------------------------------*/
@@ -24,110 +24,226 @@ html, body, body div, span, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquot
 	font-size: 100%;
 	vertical-align: baseline;
 	background: transparent;
+}									
+
+article, aside, figure, footer, header, hgroup, nav, section {
+	display: block;
 }
 
-body {
-
+/* Responsive images and other embedded objects */
+img, object, embed {
+	max-width: 100%;
 }
 
-/* HTML5 display-role reset for older browsers */
-article,aside,details,figcaption,figure,
-footer,header,hgroup,menu,nav,section{
-  display:block;
+/* force a vertical scrollbar to prevent a jumpy page */
+html {
+	overflow-y: scroll;
 }
 
-body{
+/* we use a lot of ULs that aren't bulleted. */
+ul { 
+	list-style: none;
+}
+
+blockquote, q {
+	quotes: none;
+}
+
+blockquote:before, 
+blockquote:after, 
+q:before,
+q:after {
+	content: '';
+	content: none;
+}
+
+a {
 	margin: 0;
-	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-	font-size: 13px;
-	line-height: 18px;
-	background-color: #ffffff;
-	line-height:1;
+	padding: 0;
+	font-size: 100%;
+	vertical-align: baseline;
+	background: transparent;
 }
 
-/* base text styles */
-
-p {
-	margin: 0 0 15px;
+del { 
+	text-decoration: line-through;
 }
 
-p small {
-	font-size: 11px;
-	color: #999999;
+abbr[title], dfn[title] {
+	border-bottom: 1px dotted #000;
+	cursor: help;
 }
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-	margin: 0 0 15px 0;
-	font-family: inherit;
+/* tables still need cellspacing="0" in the markup */
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+th {
 	font-weight: bold;
-	color: inherit;
-	text-rendering: optimizelegibility;
+	vertical-align: bottom;
 }
 
-h1 small,
-h2 small,
-h3 small,
-h4 small,
-h5 small,
-h6 small {
+td {
 	font-weight: normal;
-	color: #999999;
+	vertical-align: top;
+}
+
+hr {
+	display: block;
+	height: 1px;
+	border: 0;
+	border-top: 1px solid #ccc;
+	margin: 1em 0;
+	padding: 0;
+}
+
+input, select {
+	vertical-align: middle;
+}
+
+pre {
+	white-space: pre; /* CSS2 */
+	white-space: pre-wrap; /* CSS 2.1 */
+	white-space: pre-line; /* CSS 3 (and 2.1 as well, actually) */
+	word-wrap: break-word; /* IE */
+}
+
+input[type="radio"] {
+	vertical-align: text-bottom;
+}
+
+input[type="checkbox"] {
+	vertical-align: bottom;
+	*vertical-align: baseline;
+}
+
+.ie6 input {
+	vertical-align: text-bottom;
+}
+
+select, input, textarea {
+	font: 99% sans-serif;
+}
+
+table {
+	font-size: inherit;
+	font: 100%;
+}
+
+/* Accessible focus treatment */
+a:hover, a:active {
+	outline: none;
+}
+
+small {
+	font-size: 85%;
+}
+
+strong, th {
+	font-weight: bold;
+}
+
+td, td img {
+	vertical-align: top;
+} 
+
+/* Make sure sup and sub don't mess with your line-heights */
+sub, sup {
+	font-size: 75%;
+	line-height: 0;
+	position: relative;
+}
+
+sup {
+	top: -0.5em;
+}
+
+sub {
+	bottom: -0.25em;
+}
+
+/* standardize any monospaced elements */
+pre, code, kbd, samp {
+	font-family: monospace, sans-serif;
+}
+
+/* hand cursor on clickable elements */
+.clickable,
+label, 
+input[type=button], 
+input[type=submit], 
+button {
+	cursor: pointer;
+}
+
+/* Webkit browsers add a 2px margin outside the chrome of form elements */
+button, input, select, textarea {
+	margin: 0;
+}
+
+/* make buttons play nice in IE */
+button {
+	width: auto;
+	overflow: visible;
+}
+
+/* scale images in IE7 more attractively */
+.ie7 img {
+	-ms-interpolation-mode: bicubic;
+}
+
+/* prevent BG image flicker upon hover */
+.ie6 html {
+	filter: expression(document.execCommand("BackgroundImageCache", false, true));
+}
+
+/* clear floats */
+.clearfix:before,
+.clearfix:after {
+	content: "\0020";
+	display: block;
+	height: 0;
+	overflow: hidden;
+}  
+
+.clearfix:after {
+	clear: both;
+}  
+
+.clearfix {
+	zoom: 1;
+}
+
+/* text styles */
+
+h1, h2, h3, h4, h5, p {
+	margin: 0 0 15px 0;
 }
 
 h1 {
-	font-size: 30px;
-	line-height: 36px;
-}
-
-h1 small {
-	font-size: 18px;
+	font-size: 36px;
 }
 
 h2 {
 	font-size: 24px;
-	line-height: 36px;
-}
-
-h2 small {
-	font-size: 18px;
 }
 
 h3 {
 	font-size: 18px;
-	line-height: 27px;
-}
-
-h3 small {
-	font-size: 14px;
-}
-
-h4,
-h5,
-h6 {
-	line-height: 18px;
 }
 
 h4 {
 	font-size: 14px;
 }
 
-h4 small {
-	font-size: 12px;
-}
-
 h5 {
 	font-size: 12px;
 }
 
-h6 {
-	font-size: 11px;
-	color: #999999;
-	text-transform: uppercase;
+p {
+	font-size: 14px;
 }
 
 /*-------------------------------------------------------------------------------*/
