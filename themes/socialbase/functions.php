@@ -40,6 +40,15 @@ if (!current_user_can('edit_posts')) {
 	add_filter('show_admin_bar', '__return_false');
 }
 
+
+///////////////////////////////////
+// Add featured image support
+///////////////////////////////////
+
+//add post-thumbnails to the system
+add_theme_support('post-thumbnails');
+
+
 ///////////////////////////////////
 // Adds featured images to RSS feed
 ///////////////////////////////////
