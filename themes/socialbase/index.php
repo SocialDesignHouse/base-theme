@@ -22,7 +22,6 @@
 
 	<?php endwhile; ?>
 
-	<?php include (TEMPLATEPATH . '/_/inc/nav.php' ); ?>
 
 	<?php else : ?>
 
