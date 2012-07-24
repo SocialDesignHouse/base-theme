@@ -40,14 +40,12 @@ if (!current_user_can('edit_posts')) {
 	add_filter('show_admin_bar', '__return_false');
 }
 
-
 ///////////////////////////////////
 // Add featured image support
 ///////////////////////////////////
 
 //add post-thumbnails to the system
 add_theme_support('post-thumbnails');
-
 
 ///////////////////////////////////
 // Adds featured images to RSS feed
@@ -147,6 +145,54 @@ function nav_id_filter($id, $item) {
 }
 
 add_filter('nav_menu_item_id','nav_id_filter',10,2 );
+
+///////////////////////////////////
+// Check user entered URLs
+///////////////////////////////////
+
+/*
+used to create appropriate links from user-entered urls
+
+parameters:
+	$link = link the user entered (will be set to javascript:void(0); if left empty)
+	$text = text to show up as a link (required)
+	$title = optional title attribute for link (will be set to text if left empty)
+	$options = associative array of extra attributes (will be set to an empty array if no array is included as a parameter)
+		example:
+			$opt_array = array(
+				'target' => '_blank',
+				'class' => 'portfolio-link',
+			);
+	
+use this function like this:  $link = social_anchor($link,$text,$title,$options);
+*/
+
+function social_anchor($link = '', $text, $title = '', $options = array()) {
+	//set array for commonly-used TLD's, add more as they come up
+	$tld = array('.com','.org','.net','.us','.co.uk','.biz','.mobi','.me','.info','.edu','.gov','.mil');
+	//set extra attributes to null
+	$add_atts = '';
+	//loop through options array and add them to the extra attributes string
+	foreach($options as $att => $val) { $add_atts .= ' ' . $att . '="' . $val'"'; }
+	//if there is no title, the link text becomes the title
+	if(!$title) { $title = $text; }
+	//check for http://, https://, ftp://, and /
+	if(substr($link,0,7) == "http://" || substr($link,0,8) == "https://" || substr($link,0,1) == "/" || substr($link,0,6) == "ftp://") {	
+		$href = 'href="' . $link . '"';
+	//if it starts with www. or ends with one of the pre-defined TLDs we set up earlier
+	} elseif(substr($link,0,4) == "www." || in_array(substr($link,-4),$tld) {
+		$href = 'href="http://' . $link . '"';
+	//if it has no http:// or www. or TLD it is probably internal, so let's add a slash and call it a day
+	} elseif($link != '') {
+		$href = 'href="/' . $link . '"';
+	//if the link is null, set href to javascript:void(0);
+	} else {
+		$href = 'href="javascript:void(0);"';
+	}
+	$link = '<a' . $add_atts . ' ' . $href . '" title="' . $title . '">' . $text . '</a>';
+	//return the formatted link
+	return $link;
+}
 
 ///////////////////////////////////
 // Enqueue Register Script
