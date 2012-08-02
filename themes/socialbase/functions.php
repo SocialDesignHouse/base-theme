@@ -15,7 +15,7 @@ if ( is_readable($locale_file) )
 // Add RSS links to <head> section
 ///////////////////////////////////
 
-automatic_feed_links();
+add_theme_support('automatic-feed-links');
 
 ///////////////////////////////////
 // Load jQuery (must be /_/js/jquery.min.js)
@@ -40,14 +40,11 @@ if (!current_user_can('edit_posts')) {
 	add_filter('show_admin_bar', '__return_false');
 }
 
-
 ///////////////////////////////////
 // Add featured image support
 ///////////////////////////////////
 
-//add post-thumbnails to the system
 add_theme_support('post-thumbnails');
-
 
 ///////////////////////////////////
 // Adds featured images to RSS feed
@@ -81,10 +78,49 @@ function removeHeadLinks() {
 	remove_action( 'wp_head', 'adjacent_posts_rel_link_wp_head', 10, 0);
 	remove_action( 'wp_head', 'rel_canonical');
 	remove_action( 'wp_head', 'wp_generator' ); // Display the XHTML generator that is generated on the wp_head hook, WP version
-   }
-   add_action('init', 'removeHeadLinks');
-   remove_action('wp_head', 'wp_generator');
-   
+}
+add_action('init', 'removeHeadLinks');
+
+remove_action('wp_head', 'wp_generator');
+
+///////////////////////////////////
+// Remove Dashboard Widgets
+///////////////////////////////////
+
+function disable_default_dashboard_widgets() {
+	// disable default dashboard widgets
+	remove_meta_box('dashboard_right_now', 'dashboard', 'core');
+	remove_meta_box('dashboard_recent_comments', 'dashboard', 'core');
+	remove_meta_box('dashboard_incoming_links', 'dashboard', 'core');
+	remove_meta_box('dashboard_plugins', 'dashboard', 'core');
+	remove_meta_box('dashboard_quick_press', 'dashboard', 'core');
+	remove_meta_box('dashboard_recent_drafts', 'dashboard', 'core');
+	remove_meta_box('dashboard_primary', 'dashboard', 'core');
+	remove_meta_box('dashboard_secondary', 'dashboard', 'core');
+	//remove_meta_box('meandmymac_rss_widget', 'dashboard', 'normal'); //AdRotate
+}
+add_action('admin_menu', 'disable_default_dashboard_widgets');
+	
+function hide_welcome_screen() {
+	//hide the welcome panel
+	$user_id = get_current_user_id();
+	if ( 1 == get_user_meta( $user_id, 'show_welcome_panel', true ) )
+		update_user_meta( $user_id, 'show_welcome_panel', 0 );
+}
+add_action( 'load-index.php', 'hide_welcome_screen' );
+
+///////////////////////////////////
+// Muffle Update Notices
+///////////////////////////////////
+
+function run_chk_usr_lvl($matches) {
+	global $userdata;
+	if (!current_user_can('update_plugins')) { 
+		remove_action('admin_notices', 'update_nag', 3);
+	}
+}
+add_action('admin_init', 'run_chk_usr_lvl');
+
 ///////////////////////////////////
 // Register Sidebars
 ///////////////////////////////////
@@ -118,7 +154,7 @@ if (!is_admin()) {
 // Add Post Formats
 ///////////////////////////////////
 
-   add_theme_support( 'post-formats', array('aside', 'gallery', 'link', 'image', 'quote', 'status', 'audio', 'chat', 'video')); // Add 3.1 post format theme support.
+add_theme_support( 'post-formats', array('aside', 'gallery', 'link', 'image', 'quote', 'status', 'audio', 'chat', 'video')); // Add 3.1 post format theme support.
 
 ///////////////////////////////////
 // Add page name to body's class attribute
