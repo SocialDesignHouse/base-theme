@@ -211,14 +211,16 @@ function social_anchor($link = '', $text, $title = '', $options = array()) {
 	//set extra attributes to null
 	$add_atts = '';
 	//loop through options array and add them to the extra attributes string
-	foreach($options as $att => $val) { $add_atts .= ' ' . $att . '="' . $val'"'; }
+	foreach($options as $att => $val) { 
+		$add_atts .= ' ' . $att . '="' . $val . '"';
+	}
 	//if there is no title, the link text becomes the title
 	if(!$title) { $title = $text; }
 	//check for http://, https://, ftp://, and /
 	if(substr($link,0,7) == "http://" || substr($link,0,8) == "https://" || substr($link,0,1) == "/" || substr($link,0,6) == "ftp://") {	
 		$href = 'href="' . $link . '"';
 	//if it starts with www. or ends with one of the pre-defined TLDs we set up earlier
-	} elseif(substr($link,0,4) == "www." || in_array(substr($link,-4),$tld) {
+	} elseif(substr($link,0,4) == "www." || in_array(substr($link,-4),$tld)) {
 		$href = 'href="http://' . $link . '"';
 	//if it has no http:// or www. or TLD it is probably internal, so let's add a slash and call it a day
 	} elseif($link != '') {
