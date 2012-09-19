@@ -314,7 +314,12 @@ function social_anchor($link = '', $text, $title = '', $options = array()) {
 // Enqueue Register Script
 ///////////////////////////////////
 
+/* ----- Facebook JS ----- */
 //wp_register_script('facebook',get_stylesheet_directory_uri() . "/_/js/fb.js",'','',true);
 //wp_enqueue_script('facebook');
+/* ----- Pinterest JS ----- */
+//wp_register_script('pinterest','https://assets.pinterest.com/js/pinit.js','','',true);
+//wp_enqueue_script('pinterest');
+/* ----- jq-def-text JS ----- */
 //wp_register_script('jq-def-text', get_bloginfo('template_directory') . "/_/js/jquery.def-text/jquery.def-text-1.3.min.js", array('jquery'), '1.3', true);
 //wp_enqueue_script('jq-def-text');
