@@ -17,28 +17,104 @@ if ( is_readable($locale_file) )
 
 add_theme_support('automatic-feed-links');
 
+//////////////////////////////////
+// Add custom nav menu location
+//////////////////////////////////
+
+//set nav menu
+function register_my_menus() {
+	register_nav_menus(
+		array(
+			'primary' => __('Primary Nav')
+		)
+	);
+}
+//run this on init action
+add_action('init','register_my_menus');
+
 ///////////////////////////////////
 // Load jQuery (must be /_/js/jquery.min.js)
 ///////////////////////////////////
 
-if ( !function_exists(core_mods) ) {
-	function core_mods() {
-		if ( !is_admin() ) {
-			wp_deregister_script('jquery');
-			wp_register_script('jquery', (get_stylesheet_directory_uri() . "/_/js/jquery.min.js"), false);
-			wp_enqueue_script('jquery');
-		}
+if ( !is_admin() ) {
+	/*---------------------------------------------------------------------------------------------
+	
+		This snippet loads jQuery via Google, but falls back to a locally hosted copy
+		if necessary. 
+
+		It was modified from:
+
+		http://wpshock.com/wordpress-load-jquery-from-google-libraries-cdn-with-local-jquery-fallback/
+
+		There have been adjustments to make the code better suited for our purposes and also some
+		formatting adjustments to make the code follow our style guidelines.
+	
+	---------------------------------------------------------------------------------------------*/
+			
+	// jQuery via Google CDN With Local Fall Back
+	$v = '1.8.1'; //you must update this to the most recent version of jQuery
+	// the URL to check against
+	$url = 'http://ajax.googleapis.com/ajax/libs/jquery/' . $v . '/jquery.min.js';
+	// test parameters
+	$test_url = @fopen($url,'r');
+	// test if the URL exists
+	if($test_url !== false) {
+		// deregisters the default WordPress jQuery
+		wp_deregister_script( 'jquery' );
+		// register the external file
+		wp_register_script('jquery', $url, '', $v, true);
+		// enqueue the external file
+		wp_enqueue_script('jquery');
+	} else {
+		// enqueue the local file
+		wp_deregister_script("jquery");
+		// register the external file
+		wp_register_script("jquery",get_template_directory() . '/_/js/jquery.min.js', '', $v, true);
+		// enqueue the external file
+		wp_enqueue_script('jquery');
 	}
-	core_mods();
+	// END wpshock.com modified code
 }
 
 ///////////////////////////////////
 // Hide Admin Bar
 ///////////////////////////////////
 
-if (!current_user_can('edit_posts')) {
-	add_filter('show_admin_bar', '__return_false');
+/*---------------------------------------------------------------------------------------------
+	
+	This snippet hides the admin bar entirely and removes the 28px of space at the top of 
+	the screen when the admin bar is missing
+
+	It was modified from:
+
+	http://wp.tutsplus.com/tutorials/how-to-disable-the-admin-bar-in-wordpress-3-3/
+
+	There have been adjustments to format the code to follow our style guidelines.
+	
+---------------------------------------------------------------------------------------------*/
+
+if(!function_exists('disableAdminBar')) {
+	function disableAdminBar() {
+		// for the admin page
+		remove_action( 'admin_footer', 'wp_admin_bar_render', 1000 );
+		// for the front end 
+		remove_action( 'wp_footer', 'wp_admin_bar_render', 1000 ); 
+
+		// css override for the admin page
+		function remove_admin_bar_style_backend() {
+			echo '<style>body.admin-bar #wpcontent, body.admin-bar #adminmenu { padding-top: 0px !important; }</style>';
+		}
+		add_filter('admin_head', 'remove_admin_bar_style_backend');
+
+		// css override for the frontend
+		function remove_admin_bar_style_frontend() {
+			echo '<style type="text/css" media="screen">html { margin-top: 0px !important; } * html body { margin-top: 0px !important; } </style>';
+		}
+		add_filter('wp_head', 'remove_admin_bar_style_frontend', 99);
+	}
 }
+
+add_action('init', 'disableAdminBar');
 
 ///////////////////////////////////
 // Add featured image support
@@ -238,7 +314,7 @@ function social_anchor($link = '', $text, $title = '', $options = array()) {
 // Enqueue Register Script
 ///////////////////////////////////
 
-wp_register_script('facebook',get_stylesheet_directory_uri() . "/_/js/fb.js",'','',true);
-wp_enqueue_script('facebook');
-
-?>
+//wp_register_script('facebook',get_stylesheet_directory_uri() . "/_/js/fb.js",'','',true);
+//wp_enqueue_script('facebook');
+//wp_register_script('jq-def-text', get_bloginfo('template_directory') . "/_/js/jquery.def-text/jquery.def-text-1.3.min.js", array('jquery'), '1.3', true);
+//wp_enqueue_script('jq-def-text');
