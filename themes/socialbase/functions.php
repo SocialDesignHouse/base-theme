@@ -33,6 +33,16 @@ function register_my_menus() {
 add_action('init','register_my_menus');
 
 ///////////////////////////////////
+// Remove Attachment link
+///////////////////////////////////
+
+function remove_media_link( $form_fields, $post ) {
+	unset( $form_fields['url'] );
+	return $form_fields;
+}
+add_filter( 'attachment_fields_to_edit', 'remove_media_link', 10, 2 );
+
+///////////////////////////////////
 // Load jQuery (must be /_/js/jquery.min.js)
 ///////////////////////////////////
 
