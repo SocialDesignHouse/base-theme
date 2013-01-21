@@ -36,7 +36,18 @@ class acf_Checkbox extends acf_Field
 	function create_field($field)
 	{
 		// defaults
-		if(empty($field['value'])) $field['value'] = array();
+		if(empty($field['value']))
+		{
+			$field['value'] = array();
+		}
+		
+		
+		// single value to array conversion
+		if( !is_array($field['value']) )
+		{
+			$field['value'] = array( $field['value'] );
+		}
+		
 		
 		// no choices
 		if(empty($field['choices']))
@@ -60,7 +71,7 @@ class acf_Checkbox extends acf_Field
 			{
 				$selected = 'checked="yes"';
 			}
-			echo '<li><label><input type="checkbox" class="' . $field['class'] . '" name="' . $field['name'] . '" value="' . $key . '" ' . $selected . ' />' . $value . '</label></li>';
+			echo '<li><label><input id="' . $field['id'] . '-' . $key . '" type="checkbox" class="' . $field['class'] . '" name="' . $field['name'] . '" value="' . $key . '" ' . $selected . ' />' . $value . '</label></li>';
 		}
 		
 		echo '</ul>';
@@ -110,63 +121,17 @@ class acf_Checkbox extends acf_Field
 				</p>
 			</td>
 			<td>
-				<textarea rows="5" name="fields[<?php echo $key; ?>][choices]" id=""><?php echo $field['choices']; ?></textarea>
+				<?php 
+				do_action('acf/create_field', array(
+					'type'	=>	'textarea',
+					'class' => 	'textarea field_option-choices',
+					'name'	=>	'fields['.$key.'][choices]',
+					'value'	=>	$field['choices'],
+				));
+				?>
 			</td>
 		</tr>
 		<?php
-	}
-
-	
-	/*--------------------------------------------------------------------------------------
-	*
-	*	pre_save_field
-	*	- called just before saving the field to the database.
-	*
-	*	@author Elliot Condon
-	*	@since 2.2.0
-	* 
-	*-------------------------------------------------------------------------------------*/
-	
-	function pre_save_field($field)
-	{
-		// defaults
-		$field['choices'] = isset($field['choices']) ? $field['choices'] : '';
-		
-		// vars
-		$new_choices = array();
-		
-		// explode choices from each line
-		if(strpos($field['choices'], "\n") !== false)
-		{
-			// found multiple lines, explode it
-			$field['choices'] = explode("\n", $field['choices']);
-		}
-		else
-		{
-			// no multiple lines! 
-			$field['choices'] = array($field['choices']);
-		}
-		
-		// key => value
-		foreach($field['choices'] as $choice)
-		{
-			if(strpos($choice, ' : ') !== false)
-			{
-				$choice = explode(' : ', $choice);
-				$new_choices[trim($choice[0])] = trim($choice[1]);
-			}
-			else
-			{
-				$new_choices[trim($choice)] = trim($choice);
-			}
-		}
-		
-		// update choices
-		$field['choices'] = $new_choices;
-		
-		// return updated field
-		return $field;
-
 	}
 		
 }

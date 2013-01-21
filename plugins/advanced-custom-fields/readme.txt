@@ -1,9 +1,10 @@
 === Advanced Custom Fields ===
 Contributors: Elliot Condon
 Tags: custom, field, custom field, advanced, simple fields, magic fields, more fields, repeater, matrix, post, type, text, textarea, file, image, edit, admin
-Requires at least: 3.0
-Tested up to: 3.3
-Stable tag: 3.3
+Requires at least: 3.0.0
+Tested up to: 3.5.0
+License: GPLv2 or later
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 Fully customise WordPress edit screens with powerful fields. Boasting a professional interface and a powerfull API, it’s a must have for any web developer working with WordPress.Field types include: Wysiwyg, text, textarea, image, file, select, checkbox, page link, post object, date picker, color picker and more!
 
@@ -12,13 +13,14 @@ Fully customise WordPress edit screens with powerful fields. Boasting a professi
 Advanced Custom Fields is the perfect solution for any wordpress website which needs more flexible data like other Content Management Systems. 
 
 * Visually create your Fields
-* Select from multiple input types (text, textarea, wysiwyg, image, file, page link, post object, relationship, select, checkbox, radio buttons, repeater, more to come)
+* Select from multiple input types (text, textarea, wysiwyg, image, file, page link, post object, relationship, select, checkbox, radio buttons, date picker, true / false, repeater, flexible content, gallery and more to come!)
 * Assign your fields to multiple edit pages (via custom location rules)
 * Easily load data through a simple and friendly API
 * Uses the native WordPress custom post type for ease of use and fast processing
 * Uses the native WordPress metadata for ease of use and fast processing
 
 = Field Types =
+* Tab (Group fields into tabs)
 * Text (type text, api returns text)
 * Text Area (type text, api returns text with `<br />` tags)
 * WYSIWYG (a wordpress wysiwyg editor, api returns html)
@@ -30,9 +32,11 @@ Advanced Custom Fields is the perfect solution for any wordpress website which n
 * Post Object (select 1 or more page, post or custom post types, api returns post objects)
 * Date Picker (jquery date picker, options for format, api returns string)
 * True / False (tick box with message, api returns true or false)
-* Repeater (ability to create repeatable blocks of fields!)
 * Relationship	(select and order post objects with a tidy interface)
 * Color Picker (Farbtastic!)
+* Repeater (ability to create repeatable blocks of fields!)
+* Flexible Content (ability to create flexible blocks of fields!)
+* Gallery (Add, edit and order multiple images in 1 simple field)
 
 = Tested on =
 * Mac Firefox 	:)
@@ -51,7 +55,7 @@ http://www.advancedcustomfields.com/docs/getting-started/
 http://www.advancedcustomfields.com/docs/field-types/
 
 = Bug Submission and Forum Support =
-http://www.advancedcustomfields.com/support/
+http://support.advancedcustomfields.com/
 
 = Please Vote and Enjoy =
 Your votes really make a difference! Thanks.
@@ -70,10 +74,11 @@ Your votes really make a difference! Thanks.
 
 = Q. I have a question =
 A. Chances are, someone else has asked it. Check out the support forum at: 
-http://www.advancedcustomfields.com/support/
+http://support.advancedcustomfields.com/
 
 
 == Screenshots ==
+
 1. Creating the Advanced Custom Fields
 
 2. Adding the Custom Fields to a page and hiding the default meta boxes
@@ -84,6 +89,341 @@ http://www.advancedcustomfields.com/support/
 
 
 == Changelog ==
+
+= 3.5.8.1 =
+* [Fixed] Fix PHP error in text / textarea fields
+
+= 3.5.8 =
+* [Fixed] Fix bug preventing fields to load on user / taxonomy front end form - http://support.advancedcustomfields.com/discussion/4393/front-end-user-profile-field-form-causes-referenceerror
+* [Added] Added 'acf/fields/wysiwyg/toolbars' filter to customize WYSIWYG toolbars - http://support.advancedcustomfields.com/discussion/2205/can-we-change-wysiwyg-basic-editor-buttons
+* [Fixed] Fix acf_load_filters as they are not working! - http://support.advancedcustomfields.com/discussion/comment/12770#Comment_12770
+* [Added] Clean up wp_options after term delete - http://support.advancedcustomfields.com/discussion/4396/delete-taxonomy-term-custom-fields-after-term-delete
+* [Fixed] Fix location rule - category / taxonomy on new post - http://support.advancedcustomfields.com/discussion/3635/show-custom-fields-on-post-adding
+* [Added] Added 'acf/create_field' action for third party usage - docs to come soon
+* [Added] Add support for new media uploader in WP 3.5!
+* [Fixed] Fix conditional logic error - http://support.advancedcustomfields.com/discussion/4502/conditional-logic-script-output-causes-events-to-fire-multiple-times
+* [Fixed] Fix Uploader not working on taxonomy edit screens - http://support.advancedcustomfields.com/discussion/4536/media-upload-button-for-wysiwyg-does-not-work-when-used-on-a-taxonomy-term
+* [Added] Add data cleanup after removing a repeater / flexible content row - http://support.advancedcustomfields.com/discussion/1994/deleting-single-repeater-fields-does-not-remove-entry-from-database 
+
+
+= 3.5.7.2 =
+* [Fixed] Fix fields not showing on attachment edit page in WP 3.5 - http://support.advancedcustomfields.com/discussion/4261/after-upgrading-to-3-5-acf-fields-assigned-to-show-on-attachments-media-edit-are-not-showing
+* [Fixed] Fix sub repeater css bug - http://support.advancedcustomfields.com/discussion/4361/repeater-add-button-inappropriately-disabled
+* [Fixed] Fix issue where acf_form includes scripts twice - http://support.advancedcustomfields.com/discussion/4372/afc-repeater-on-front-end
+* [Fixed] Fix location rule bug with new shopp product - http://support.advancedcustomfields.com/discussion/4406/shopp-idnew-product-page-doesn039t-have-acf-fields
+* [Fixed] Fix location rule bug with taxonomy / post_taxonomy - http://support.advancedcustomfields.com/discussion/4407/taxonomy-rules-ignored-until-toggling-the-taxonomy
+
+= 3.5.7.1 =
+* [Fixed] Fix issues with location rules wrongly matching
+
+= 3.5.7 =
+* [Fixed] Fix sub field default value - http://support.advancedcustomfields.com/discussion/3706/select-field-default-value-not-working
+* [Added] Add filters for custom location rules - http://support.advancedcustomfields.com/discussion/4285/how-to-retrieve-a-custom-field-within-the-function-php
+* [Fixed] Fix XML import to create unique field ID's - http://support.advancedcustomfields.com/discussion/4328/check-acf_next_field_id-to-avoid-data-corruption
+* [Fixed] Fix conditional logic with validation - http://support.advancedcustomfields.com/discussion/4295/issue-with-conditional-logic-and-obrigatory-fields
+* [Fixed] Fix repeater + relationship bug - http://support.advancedcustomfields.com/discussion/4296/relationship-field-bug
+
+= 3.5.6.3 =
+* [Fixed] Fix bug with 3.5.6 not showing front end form
+
+= 3.5.6.2 =
+* [Fixed] Fix WYSIWYG webkit browser issues.
+
+= 3.5.6.1 =
+* [Fixed] Fix bug causing field groups to not display on the options page.
+
+= 3.5.6 =
+* [Fixed] Fix content editor double in webkit browser - http://support.advancedcustomfields.com/discussion/4223/duplicate-editor-box-safari-bug-has-returned
+* [Fixed] Fix bug with post format location rule not working - http://support.advancedcustomfields.com/discussion/4264/not-recognizing-post-type-formats-following-upgrade-to-version-3-5-5
+* [Fixed] Fix conditional logic with tabs - http://support.advancedcustomfields.com/discussion/4201/tabs-and-logical-condition
+* [Fixed] Fix missing icons for conditional logic / menu in older WP
+* [Added] Add PHP fix for new lines in field key - http://support.advancedcustomfields.com/discussion/4087/can039t-add-new-field
+
+= 3.5.5 =
+* [Added] Add new Tab field
+* [Fixed] Improve WYSIWYG code for better compatibility
+* [Fixed] Fix PHP / AJAX error during database update for older versions
+* [Fixed] WYSIWYG insert attachment focus bug - http://support.advancedcustomfields.com/discussion/4076/problem-with-upload-in-wysiwyg-editors-in-combination-with-flexible-content
+* [Fixed] Fix JS coma issues for IE - http://support.advancedcustomfields.com/discussion/4064/ie-javascript-issues-on-editing-field-group
+* [Added] Add no cache to relationship field results - http://support.advancedcustomfields.com/discussion/2325/serious-memory-issue-using-post-objectrelationship-field-with-only-5000-posts
+* [Added] Add retina support
+* [Fixed] Fix WYSIWYG validation for preview post - http://support.advancedcustomfields.com/discussion/4055/validation-failing-on-required-wysiwyg-field
+* [Fixed] Fix undefined index error in field's conditional logic - http://support.advancedcustomfields.com/discussion/4165/undefined-index-notice-on-php-export
+* [Updated] Update post types in field options - http://support.advancedcustomfields.com/discussion/3656/acf-for-custom-post-type
+* [Added] Add filters to relationship field results
+* [Added] Add file name bellow title in popup for selecting a file
+
+= 3.5.4.1 =
+* [Fixed] Fix bug preventing options pages from appearing in the field group's location rules
+
+= 3.5.4 =
+* [Added] Add new filter for ACF settings - http://www.advancedcustomfields.com/docs/filters/acf_settings/
+* [Updated] Updated field keys to look nicer. eg field_12
+* [Added] Update admin_head to use hooks / enque all scripts / styles
+* [Added] Add duplicate function for flexible content layouts
+* [Fixed] Fix $post_id bug - http://support.advancedcustomfields.com/discussion/3852/acf_form-uses-global-post_id-instead-of-argument
+* [Fixed] Fix WYSIWYG JS issue - http://support.advancedcustomfields.com/discussion/3644/flexible-layout-field-reordering-breaks-when-visual-editor-disabled
+* [Fixed] Fix Gallery PHP error - http://support.advancedcustomfields.com/discussion/3856/undefined-index-error-gallery-on-options-page
+* [Added] Add compatibility for Shopp categories - http://support.advancedcustomfields.com/discussion/3647/custom-fields-not-showing-up-in-shopp-catalog-categories
+* [Fixed] Fix "Parent Page" location rule - http://support.advancedcustomfields.com/discussion/3885/parent-page-type-check
+* [Fixed] Fix options page backwards compatibility - support.advancedcustomfields.com/discussion/3908/acf-options-page-groups-are-not-backward-compatible
+* [Fixed] Fix update_field for content - http://support.advancedcustomfields.com/discussion/3916/add-flexible-layout-row-with-update_field
+* [Added] Add new filter for acf_defaults! - http://support.advancedcustomfields.com/discussion/3947/options-page-plugin-user-capabilites-limitation
+* [Fixed] Fix gallery detail update after edit - http://support.advancedcustomfields.com/discussion/3899/gallery-image-attributes-not-updating-after-change
+* [Fixed] Fix front end uploading issue - http://support.advancedcustomfields.com/discussion/comment/10502#Comment_10502
+
+= 3.5.3.1 =
+* Minor bug fixes for 3.5.3
+
+= 3.5.3 =
+* [Updated] Update / overhaul flexible content field UI
+* [Added] Add Show / Hide for flexible content layouts
+* [Added] Add column width for flexible content - http://support.advancedcustomfields.com/discussion/3382/percentage-widths-on-fc-fields
+* [Added] Add instructions for flexible content sub fields
+* [Added] Add new parameter to get_field to allow for no formatting - http://support.advancedcustomfields.com/discussion/3188/update_field-repeater
+* [Fixed] Fix compatibility issue with post type switcher plugin - http://support.advancedcustomfields.com/discussion/3493/field-group-changes-to-post-when-i-save
+* [Added] Add new location rules for "Front Page" "Post Page" - http://support.advancedcustomfields.com/discussion/3485/groups-association-whit-page-slug-instead-of-id
+* [Fixed] Fix flexible content + repeater row limit bug - http://support.advancedcustomfields.com/discussion/3557/repeater-fields-inside-flexible-field-on-backend-not-visible-before-first-savingpublishing
+* [Added] Add filter "acf_load_value" for values - http://support.advancedcustomfields.com/discussion/3725/a-filter-for-get_field
+* [Fixed] Fix choices backslash issue - http://support.advancedcustomfields.com/discussion/3796/backslash-simple-quote-bug-in-radio-button-values-fields
+* [Updated] acf_options_page_title now overrides the menu and title. If your field groups are not showing after update, please re-save them to update the location rules.
+* [Updated] Update location rules to show all post types in page / page_parent / post
+* [Added] Change all "pre_save_field" functions to "acf_save_field" hooks
+* [Improved] Improve general CSS / JS
+
+= 3.5.2 =
+* Security update
+
+= 3.5.1 =
+* [Added] Add Conditional logic for fields (toggle fields are select, checkbox, radio and true / false)
+* [Added] More hooks + filters - acf_options_page_title, acf_load_field, acf_update_value - http://support.advancedcustomfields.com/discussion/3454/more-hooks-filters-ability-for-inheritance
+* [Removed] Remove public param from post types list - http://support.advancedcustomfields.com/discussion/3251/fields-on-a-non-public-post-type
+* [Added] Add field group headings into the acf_form function
+* [Updated] Update button design to match WP 3.5
+* [Fixed] Test / Fix XML export issue - http://support.advancedcustomfields.com/discussion/3415/can039t-export-xml-since-upgrade-to-3-5-0
+* [Added] Add more options to the "hide on screen" - http://support.advancedcustomfields.com/discussion/3418/screen-options
+* [Added] Add compatibility for Tabify plugin - http://wordpress.org/support/topic/plugin-tabify-edit-screen-compatibility-with-other-custom-fields-plugins/page/2?replies=36#post-3238051
+* [Added] Add compatibility for Duplicate Post plugin
+* [Added] Add new params to acf_form function - http://support.advancedcustomfields.com/discussion/3445/issue-with-the-acf_form-array
+* [Updated] Increase date picker range to 100
+* [Fixed] WYSIWYG looses formatting when it's row gets reordered (in a repeater / flexible content field)
+* [Fixed] Fix has_sub_field break issue - http://support.advancedcustomfields.com/discussion/3528/ability-to-reset-has_sub_field
+* [Fixed] Fix Textarea / Text encoding bugs - http://support.advancedcustomfields.com/discussion/comment/5147#Comment_5147
+* [Added] Add publish status for field groups - http://support.advancedcustomfields.com/discussion/3695/draft-status-for-field-groups
+* [Updated] General tidy up & improvement of HTML / CSS / Javascript
+
+= 3.5.0 =
+* [Fixed] Fix missing title of PHP registered field groups on the media edit page
+* [Added] Add revision support
+* [Added] Allow save draft to bypass validation
+* [Updated] Update Czech translation
+* [Fixed] Fix XML export issue with line break - http://support.advancedcustomfields.com/discussion/3219/export-and-import-problem-mixed-line-endings
+* [Fixed] Fix export to XML abspath issue - http://support.advancedcustomfields.com/discussion/2641/require-paths-in-export-php
+* Update location rules for post_type - http://support.advancedcustomfields.com/discussion/3251/fields-on-a-non-public-post-type 
+* Add "revisions" to list of hide-able options
+* [Fixed] Fix bug with custom post_id param in acf_form - http://support.advancedcustomfields.com/discussion/2991/acf_form-outside-loop
+* [Fixed] Fix bug in has_sub_field function where new values are not loaded for different posts if the field name is the same - http://support.advancedcustomfields.com/discussion/3331/repeater-field-templating-help-categories
+* [Updated] Allow get_field to use field_key or field_name
+* [Fixed] Fix update_field bug with nested repeaters
+* [Updated] Update German translation files - thanks to Martin Lettner
+
+= 3.4.3 =
+* [Fixed] Fix PHP registered field groups not showing via AJAX - http://support.advancedcustomfields.com/discussion/3143/exported-php-code-doesnt-work-with-post-formats
+* [Added] Add new return value for file { file object
+* [Fixed] Test / Fix save_post priority with WPML + events + shopp plugin
+* [Fixed] Fix bug where field groups don't appear on shopp product edit screens
+* [Fixed] Fix bug with image field { selecting multiple images puts first image into the .row-clone tr - http://support.advancedcustomfields.com/discussion/3157/image-field-repeater
+
+= 3.4.2 =
+* [Fixed] Fix API functions for 'user_$ID' post ID parameter
+* [Added] Color Picker Field: Default Value
+* [Added] Add custom save action for all saves - http://support.advancedcustomfields.com/discussion/2954/hook-on-save-options
+* [Updated] Update Dutch translations
+* [Updated] Update get_field_object function to allow for field_key / field_name + option to load_value
+
+= 3.4.1 =
+* [Added] Save user fields into wp_usermeta http://support.advancedcustomfields.com/discussion/2758/get_users-and-meta_key
+* [Added] Add compatibility with media tags plugin - http://support.advancedcustomfields.com/discussion/comment/7596#Comment_7596
+* [Added] Wysiwyg Field: Add Default value option
+* [Added] Number Field: Add Default value option
+* [Fixed] Validate relationship posts - http://support.advancedcustomfields.com/discussion/3033/relationship-field-throws-error-when-related-item-is-trashed
+* [Added] Allow "options" as post_id for get_fields - http://support.advancedcustomfields.com/discussion/1926/3-1-8-broke-get_fields-for-options
+* [Added] Repeater Field: Add sub field width option
+* [Added] Repeater Field: Add sub field description option
+* [Updated] Repeater Field: Update UI design
+* [Fixed] Fix missing ajax event on page parent - http://support.advancedcustomfields.com/discussion/3060/show-correct-box-based-on-page-parent
+* [Updated] Update french translation - http://support.advancedcustomfields.com/discussion/3088/french-translation-for-3-4-0
+
+= 3.4.0 =
+* [Fixed] Fix validation rules for multiple select - http://support.advancedcustomfields.com/discussion/2858/multiple-select-validation-doesnt-work
+* [Added] Add support for options page toggle open / close metabox
+* [Fixed] Fix special characters in registered options page - http://support.advancedcustomfields.com/discussion/comment/7500#Comment_7500
+* [Updated] CSS tweak for relationship field - http://support.advancedcustomfields.com/discussion/2877/relation-field-with-multiple-post-types-css-styling-problem-
+* [Fixed] Fix datepicker blank option bug - http://support.advancedcustomfields.com/discussion/2896/3-3-9-date-picker-not-popping-up
+* [Added] Add new function get_field_object to API - http://support.advancedcustomfields.com/discussion/290/field-label-on-frontend
+* [Fixed] Fix field groups not showing for Shopp add new product - http://support.advancedcustomfields.com/discussion/3005/acf-shopp
+* [Fixed] Move acf.data outside of the doc.ready in input-ajax.js
+* [Fixed] Fix IE7 JS bug - http://support.advancedcustomfields.com/discussion/3020/ie7-fix-on-is_clone_field-function
+* [Fixed] Fix relationship search - Only search title, not content
+* [Updated] Update function update_field to use field_key or field_name
+* [Added] Add field group screen option to show field keys (to use in save_field / update field)
+* [Added] Add actions on all save events (action is called "acf_save_post", 1 param = $post_id)
+
+= 3.3.9 =
+* [Added] Add basic support for WPML - duplicate field groups, pages and posts for each language without corrupting ACF data!
+* [Fixed] Fix date picker save null - http://support.advancedcustomfields.com/discussion/2844/bug-with-the-date-picker
+* [Fixed] Fix color picker save null - http://support.advancedcustomfields.com/discussion/2683/allow-null-on-colour-pickers#Item_1
+* [Fixed] Fix image object null result - http://support.advancedcustomfields.com/discussion/2852/3.3.8-image-field-image-object-always-returns-true-
+* [Updated] Update Japanese translation - http://support.advancedcustomfields.com/discussion/comment/7384#Comment_7384
+* [Added] WYSIWYG field option - disable "the_content" filter to allow for compatibility issues with plugins / themes - http://support.advancedcustomfields.com/discussion/comment/7020#Comment_7020
+
+= 3.3.8 =
+* [Added] Gallery field { auto add image on upload, new style to show already added images
+* [Fixed] Fix saving value issue with WP e-commerce http://support.advancedcustomfields.com/discussion/comment/7026#Comment_7026
+* [Updated] Date picker field { new display format option (different from save format), UI overhaul
+* [Added] Add new field - Number
+* [Fixed] Test post object / select based fields for saving empty value - http://support.advancedcustomfields.com/discussion/2759/post-object-and-conditional-statement
+
+= 3.3.7 =
+* [Added] Add new return value for image { image object
+* [Updated] Update Dutch translation (thanks to Derk Oosterveld - www.inpoint.nl)
+* [Updated] Update UI Styles
+* [Updated] Refresh settings page UI and fix exported PHP code indentation Styles
+* [Fixed] Fix post object hierarchy display bug - http://support.advancedcustomfields.com/discussion/2650/post_object-showing-posts-in-wrong-hierarchy
+* [Fixed] Fix metabox position from high to core - http://support.advancedcustomfields.com/discussion/comment/6846#Comment_6846
+* [Fixed] Fix flexible content field save layout with no fields - http://support.advancedcustomfields.com/discussion/2639/flexible-content-field-support-for-empty-layoutss
+* [Fixed] Text / Fix field group limit - http://support.advancedcustomfields.com/discussion/2675/admin-only-showing-20-fields-groups
+
+= 3.3.6 =
+* [Fixed] Fix IE regex issue (thanks to Ben Heller - http://spruce.it)
+* [Added] Check for more translatable strings (thanks to Derk Oosterveld - www.inpoint.nl)
+* [Fixed] Fix location rule post category bug
+* [Updated] Added all post status to page / post location rules - http://support.advancedcustomfields.com/discussion/2624/scheduled-pages
+* [Updated] Updated the page link field to rely on the post_object field
+* [Added] Add $post_id parameter to the [acf] shortcode
+
+= 3.3.5 =
+* [Fixed] Fix location rule bug for taxonomy.
+
+= 3.3.4 = 
+* [Added] Added new API function: has_sub_field - replacement for the_repeater_field and the_flexible_field. Allows for nested while loops! 
+* [Improved] Improve save_post functions- http://support.advancedcustomfields.com/discussion/2540/bug-fix-for-taxonomies-and-revisions-solved
+* [Fixed] Fix relationship AJAX abort for multiple fields - http://support.advancedcustomfields.com/discussion/2555/problem-width-relationship-after-update-the-latest-version
+
+= 3.3.3 =
+* [Upgrade] Database Upgrade is required to modify the taxonomy filtering data for fields. This allows for performance boosts throughout ACF.
+* [Improved] relationship field: Improve querying posts / results and use AJAX powered search to increase performance on large-scale websites
+* [Improved] post object field: Improve querying posts / results
+
+= 3.3.2 =
+* [Fixed] Integrate with Shopp plugin
+
+= 3.3.1 =
+* [Fixed] Fix gallery sortable in repeater - http://support.advancedcustomfields.com/discussion/2463/gallery-within-a-repeater-image-reorder-not-working
+* [Fixed] Test / Fix two gallery fields - http://support.advancedcustomfields.com/discussion/2467/gallery-two-gallery-fieldss
+* [Fixed] Fix tinymce undefined visual editor off - http://support.advancedcustomfields.com/discussion/2465/solved-admin-conflicts-after-upgrade
+* [Updated] Update Polish translation - Thanks to www.digitalfactory.pl
+
+= 3.3.0 =
+* [Fixed] Gallery not returning correct order
+
+= 3.2.9 =
+* [Added] Add new Gallery Field
+* [Fixed] Test / Fix update_field on repeater / flexible content
+* [Fixed] Fix regex JS issue with adding nested repeaters
+* [Added] Add new Czech translation - Thanks to Webees ( http://www.webees.cz/ )
+
+= 3.2.8 =
+* [Added] Repeater - Add option for min rows + max rows - http://www.advancedcustomfields.com/support/discussion/2111/repeater-empty-conditional-statements#Item_4
+* [Fixed] Test / Fix Chrome Double WYSIWYG. Again...
+* [Added] Add "future" to post status options - http://advancedcustomfields.com/support/discussion/1975/changed-line-81-and-94-of-corefieldspost_object-to-show-future-entries
+* [Added] Make image sizes strings "Pretty" for preview size options
+* [Fixed] Test / Fix WYSIWYG insert image inside a repeater bug - http://www.advancedcustomfields.com/support/discussion/2404/problem-with-repeater-wysiwyg-fields-and-images
+
+= 3.2.7 =
+* [Fixed] Rename controller classes - http://www.advancedcustomfields.com/support/discussion/2363/fatal-error-after-update-to-3.2.6
+* [Added] Add edit button to image / file fields
+* [Fixed] WYSIWYG toolbar buttons dissapearing in HTML tab mode
+
+= 3.2.6 =
+* [Fixed] Fix flexible content inside repeater add extra row jquery bug - http://www.advancedcustomfields.com/support/discussion/2134/add-flexible-content-button-in-repeater-field-adds-new-repeater-row
+* [Added] Add suppress_filters to relationship field for WPML compatibility - http://www.advancedcustomfields.com/support/discussion/comment/5401#Comment_5401
+* [Added] Add new German translation - http://www.advancedcustomfields.com/support/discussion/2197/german-translation
+* [Added] Add new Italian translation - Alessandro Mignogna (www.asernet.it)
+* [Added] Add new Japanese translation - http://www.advancedcustomfields.com/support/discussion/2219/japanese-translation
+* [Fixed] Test / Fix WYSIWYG removing p tags - http://www.advancedcustomfields.com/support/discussion/comment/5482#Comment_5482
+* [Added] edit basic toolbar buttons to match WP teeny mode - WYSIWYG
+* [Fixed] Test front end form hiding - http://www.advancedcustomfields.com/support/discussion/2226/frontend-form-disppears-on-acf-3.2.5
+* [Fixed] Test saving user custom fields - http://www.advancedcustomfields.com/support/discussion/2231/custom-fields-not-saving-data-on-initial-user-registration
+* [Fixed] Fix options page translation bug - http://www.advancedcustomfields.com/support/discussion/2098/change-language-and-options-page-fields-disappear
+* [Fixed] Pages rule not returning private pages - http://www.advancedcustomfields.com/support/discussion/2275/attach-field-group-to-privately-published-pages
+* [Added] Add custom add_image_size() Image field preview sizes - http://www.advancedcustomfields.com/support/discussion/comment/5800#Comment_5800
+
+= 3.2.5 =
+* [IMPORTANT] Change field group option "Show on page" to "Hide on Screen" to allow for future proof adding new elements to list. Previously exported and registered field groups via PHP will still work as expected! This change will prompt you for a database upgrade.
+* [Added] Add in edit button to upload image / file thickbox
+* [Improved] Changed loading default values. Now behaves as expected!
+* [Fixed] Test / Fix full screen mode dissapearing from editor - http://www.advancedcustomfields.com/support/discussion/2124/full-screen-button-for-zen-mode-is-gone
+* [Fixed] get_field returning false for 0 - http://advancedcustomfields.com/support/discussion/2115/get_field-returns-false-if-field-has-value-0
+* [Improved] Improve relationship sortable code with item param - http://www.advancedcustomfields.com/support/discussion/comment/3536#Comment_3536
+* [Fixed] IE category js bug - http://www.advancedcustomfields.com/support/discussion/2127/ie-78-category-checkbox-bug
+* [Fixed] Flexible content field row css bug - http://www.advancedcustomfields.com/support/discussion/2126/space-between-fields-is-a-little-tight-in-3.2.33.2.4
+* [Fixed] Repeater row limit in flexible field bug - http://www.advancedcustomfields.com/support/discussion/1635/repeater-with-row-limit-of-1-inside-flexible-field-no-rows-show
+* [Fixed] Fix update message - appears on first activation
+* [Fixed] Fix options page sidebar drag area - no border needed
+* [Fixed] Fix export options page activation - http://www.advancedcustomfields.com/support/discussion/2112/options-page-not-working-in-functions.php
+
+= 3.2.4 =
+* [Fixed] Remove translation from validation class - http://www.advancedcustomfields.com/support/discussion/2110/custom-validation-broken-in-other-languages
+* [Fixed] Test fix WYSIWYG insert media issues
+* [Added] Add Excerpt to the field group "show on page" options
+
+= 3.2.3 =
+* [Fixed] Include Wysiwyg scripts / styles through the editor class
+* [Fixed] Wysiwyg in repeater not working
+* [Fixed] Remove Swedish translation until string / js bugs are fixed
+* [Fixed] Checkbox  array value issue: http://wordpress.org/support/topic/plugin-advanced-custom-fields-php-warning-in-corefieldscheckboxphp?replies=6
+* [Added] Add inherit to relationship posts query - http://www.advancedcustomfields.com/support/discussion/comment/3826#Comment_3826
+* [Fixed] Relationship shows deleted posts - http://www.advancedcustomfields.com/support/discussion/2080/strange-behavior-of-relationship-field-trash-posts
+* [Fixed] Wysiwyg editor not working on taxonomy edit page 
+
+= 3.2.2 =
+* [Fixed] Fix layout bug: Nested repeaters of different layouts
+* [Fixed] Fix strip slashes bug
+* [Fixed] Fix nested repeater bug - http://www.advancedcustomfields.com/support/discussion/2068/latest-update-broken-editing-environment-
+* [Fixed] Test / Fix add multiple images to repeater
+
+= 3.2.1 =
+* Field groups can now be added to options page with layout "side"
+* Fixed debug error when saving a taxonomy:
+* Fixed unnecessary code: Remove Strip Slashes on save functions
+* Added new add row buttons to the repeater field and upgraded the css / js
+* Fixed debug error caused by the WYSIWYG field: wp_tiny_mce is deprecated since version 3.3! Use wp_editor() instead.
+* Fixed duplicate field error where all sub fields became repeater fields.
+* Add Swedish translation: http://advancedcustomfields.com/support/discussion/1993/swedish-translation
+* CSS improvements
+* Fixed IE9 Bug not returning an image preview on upload / select
+* Fixed Multi export php syntax bug.
+
+= 3.2.0 =
+* Fixed Browser bug with Flexible Field: Add Row button works again
+* Added Brazilian Translation. Thanks to Marcelo Paoli Graciano - www.paolidesign.com.br
+* Reverted input CSS to separate field label / instructions onto new lines.
+
+= 3.1.9 =
+* Updated Images / JS - Please hard refresh your browser to clear your cache
+* Remove caching from acf_field_groups, replace with temp cache
+* Add "Duplicate Field" on field group edit page
+* Fix link to documentation on field group edit page
+* add "update_value" to API
+* Include new Polish translation
+* Create a nicer style for flexible content
+* Create a nicer style for repeater fields with row layout
+* Create a nicer style for "no metabox" fields
+* Add Spanish translation. Thanks to @hectorgarrofe
+* Fix css for options page no metabox
+* Added custom post_updated_messages
+* Changed "Drag and drop to reorder" from an image to a string for translation
 
 = 3.1.8 =
 * Options page fields now save their data in the wp_options table. This will require a "Database Upgrade" when you update ACF. This upgrade will move your Options page data from the postmeta table to the options table.

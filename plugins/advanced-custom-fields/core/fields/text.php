@@ -35,7 +35,7 @@ class acf_Text extends acf_Field
 	
 	function create_field($field)
 	{
-		echo '<input type="text" value="' . $field['value'] . '" id="' . $field['name'] . '" class="' . $field['class'] . '" name="' . $field['name'] . '" />';
+		echo '<input type="text" value="' . $field['value'] . '" id="' . $field['id'] . '" class="' . $field['class'] . '" name="' . $field['name'] . '" />';
 	}
 	
 	
@@ -51,10 +51,14 @@ class acf_Text extends acf_Field
 	
 	function create_options($key, $field)
 	{
-		// defaults
-		$field['default_value'] = isset($field['default_value']) ? $field['default_value'] : '';
-		$field['formatting'] = isset($field['formatting']) ? $field['formatting'] : 'html';
+		// vars
+		$defaults = array(
+			'default_value'	=>	'',
+			'formatting' 	=>	'html',
+		);
 		
+		$field = array_merge($defaults, $field);
+
 		?>
 		<tr class="field_option field_option_<?php echo $this->name; ?>">
 			<td class="label">
@@ -62,7 +66,7 @@ class acf_Text extends acf_Field
 			</td>
 			<td>
 				<?php 
-				$this->parent->create_field(array(
+				do_action('acf/create_field', array(
 					'type'	=>	'text',
 					'name'	=>	'fields['.$key.'][default_value]',
 					'value'	=>	$field['default_value'],
@@ -77,7 +81,7 @@ class acf_Text extends acf_Field
 			</td>
 			<td>
 				<?php 
-				$this->parent->create_field(array(
+				do_action('acf/create_field', array(
 					'type'	=>	'select',
 					'name'	=>	'fields['.$key.'][formatting]',
 					'value'	=>	$field['formatting'],
@@ -123,17 +127,31 @@ class acf_Text extends acf_Field
 	function get_value_for_api($post_id, $field)
 	{
 		// vars
-		$format = isset($field['formatting']) ? $field['formatting'] : 'html';
-
+		$defaults = array(
+			'formatting'	=>	'html',
+		);
+		
+		$field = array_merge($defaults, $field);
+		
+		
+		// load value
 		$value = parent::get_value($post_id, $field);
 		
-		if($format == 'none')
+		
+		// validate type
+		if( !is_string($value) )
+		{
+			return $value;
+		}
+		
+		
+		if( $field['formatting'] == 'none' )
 		{
 			$value = htmlspecialchars($value, ENT_QUOTES);
 		}
-		elseif($format == 'html')
+		elseif( $field['formatting'] == 'html' )
 		{
-			$value = html_entity_decode($value);
+			$value = nl2br($value);
 		}
 		
 		return $value;

@@ -111,11 +111,34 @@ class acf_Field
 	
 	function update_value($post_id, $field, $value)
 	{
+		// strip slashes
+		$value = stripslashes_deep($value);
+		
+		
+		// apply filters
+		$value = apply_filters('acf_update_value', $value, $field, $post_id );
+		
+		$keys = array('type', 'name', 'key');
+		foreach( $keys as $key )
+		{
+			if( isset($field[ $key ]) )
+			{
+				$value = apply_filters('acf_update_value-' . $field[ $key ], $value, $field, $post_id);
+			}
+		}
+				
+		
 		// if $post_id is a string, then it is used in the everything fields and can be found in the options table
 		if( is_numeric($post_id) )
 		{
 			update_post_meta($post_id, $field['name'], $value);
 			update_post_meta($post_id, '_' . $field['name'], $field['key']);
+		}
+		elseif( strpos($post_id, 'user_') !== false )
+		{
+			$post_id = str_replace('user_', '', $post_id);
+			update_user_meta($post_id, $field['name'], $value);
+			update_user_meta($post_id, '_' . $field['name'], $field['key']);
 		}
 		else
 		{
@@ -123,23 +146,43 @@ class acf_Field
 			update_option( '_' . $post_id . '_' . $field['name'], $field['key'] );
 		}
 		
+		
+		//clear the cache for this field
+		wp_cache_delete('acf_get_field_' . $post_id . '_' . $field['name']);
+		
 	}
 	
 	
-	/*--------------------------------------------------------------------------------------
+	/*
+	*  delete_value
 	*
-	*	pre_save_field
-	*	- called just before saving the field to the database.
-	*
-	*	@author Elliot Condon
-	*	@since 2.2.0
-	* 
-	*-------------------------------------------------------------------------------------*/
+	*  @description: 
+	*  @since: 3.5.8
+	*  @created: 19/01/13
+	*/
 	
-	function pre_save_field($field)
+	function delete_value($post_id, $key)
 	{
-		return $field;
+		// if $post_id is a string, then it is used in the everything fields and can be found in the options table
+		if( is_numeric($post_id) )
+		{
+			delete_post_meta( $post_id, $key );
+			delete_post_meta( $post_id, '_' . $key );
+		}
+		elseif( strpos($post_id, 'user_') !== false )
+		{
+			$post_id = str_replace('user_', '', $post_id);
+			delete_user_meta( $post_id, $key );
+			delete_user_meta( $post_id, '_' . $key );
+		}
+		else
+		{
+			delete_option( $post_id . '_' . $key );
+			delete_option( '_' . $post_id . '_' . $key );
+		}
+		
 	}
+	
 	
 	
 	/*--------------------------------------------------------------------------------------
@@ -153,29 +196,89 @@ class acf_Field
 	
 	function get_value($post_id, $field)
 	{
-		$value = "";
+		$value = false;
 		
 		// if $post_id is a string, then it is used in the everything fields and can be found in the options table
 		if( is_numeric($post_id) )
 		{
-			$value = get_post_meta( $post_id, $field['name'], true );
+			$value = get_post_meta( $post_id, $field['name'], false );
 			
-			// return default if possible
-		 	if($value == "" && isset($field['default_value']))
+			// value is an array, check and assign the real value / default value
+			if( !isset($value[0]) )
+			{
+				if( isset($field['default_value']) )
+				{
+					$value = $field['default_value'];
+				}
+				else
+				{
+					$value = false;
+				}
+		 	}
+		 	else
 		 	{
-		 		$value = $field['default_value'];
+			 	$value = $value[0];
+		 	}
+		}
+		elseif( strpos($post_id, 'user_') !== false )
+		{
+			$post_id = str_replace('user_', '', $post_id);
+			
+			$value = get_user_meta( $post_id, $field['name'], false );
+			
+			// value is an array, check and assign the real value / default value
+			if( !isset($value[0]) )
+			{
+				if( isset($field['default_value']) )
+				{
+					$value = $field['default_value'];
+				}
+				else
+				{
+					$value = false;
+				}
+		 	}
+		 	else
+		 	{
+			 	$value = $value[0];
 		 	}
 		}
 		else
 		{
-			$value = get_option( $post_id . '_' . $field['name'], "" );
+			$value = get_option( $post_id . '_' . $field['name'], null );
 			
-			// return default if possible
-			if( $value == "" && isset($field['default_value']) )
+			if( is_null($value) )
 			{
-				$value = $field['default_value'];
+				if( isset($field['default_value']) )
+				{
+					$value = $field['default_value'];
+				}
+				else
+				{
+					$value = false;
+				}
+		 	}
+
+		}
+		
+		
+		// if value was duplicated, it may now be a serialized string!
+		$value = maybe_unserialize($value);
+		
+		
+		// apply filters
+		$value = apply_filters('acf_load_value', $value, $field, $post_id );
+		
+		$keys = array('type', 'name', 'key');
+		foreach( $keys as $key )
+		{
+			if( isset($field[ $key ]) )
+			{
+				$value = apply_filters('acf_load_value-' . $field[ $key ], $value, $field, $post_id);
 			}
 		}
+		
+		
 		
 		return $value;
 	}
@@ -195,38 +298,6 @@ class acf_Field
 		return $this->get_value($post_id, $field);
 	}
 	
-	
-	/*--------------------------------------------------------------------------------------
-	*
-	*	format_value_for_input
-	*	- 
-	*
-	*	@author Elliot Condon
-	*	@since 2.2.0
-	* 
-	*-------------------------------------------------------------------------------------
-	
-	function format_value_for_input($value, $field)
-	{
-		return $value;
-	}
-	*/
-	
-	/*--------------------------------------------------------------------------------------
-	*
-	*	format_value_for_api
-	*	- 
-	*
-	*	@author Elliot Condon
-	*	@since 2.2.0
-	* 
-	*-------------------------------------------------------------------------------------
-	
-	function format_value_for_api($value, $field)
-	{
-		return $value;
-	}
-	*/
 }
 
 ?>
