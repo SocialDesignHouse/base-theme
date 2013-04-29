@@ -214,12 +214,12 @@ add_action('admin_init', 'run_chk_usr_lvl');
 if (function_exists('register_sidebar')) {
 	register_sidebar(array(
 		'name' => __('Sidebar Widgets','socialbase' ),
-		'id'   => 'sidebar-widgets',
-		'description'   => __( 'These are widgets for the sidebar.','socialbase' ),
+		'id' => 'sidebar-widgets',
+		'description' => __( 'These are widgets for the sidebar.','socialbase' ),
 		'before_widget' => '<div id="%1$s" class="widget %2$s">',
-		'after_widget'  => '</div>',
-		'before_title'  => '<h2>',
-		'after_title'   => '</h2>'
+		'after_widget' => '</div>',
+		'before_title' => '<h2>',
+		'after_title' => '</h2>'
 	));
 }
 
@@ -228,14 +228,14 @@ if (function_exists('register_sidebar')) {
 ///////////////////////////////////
 
 function complete_version_removal() {
-    return '';
+	return '';
 }
 add_filter('the_generator', 'complete_version_removal');
 
 if (!is_admin()) {
-  wp_deregister_script('l10n');
+	wp_deregister_script('l10n');
 }
-   
+
 ///////////////////////////////////
 // Add Post Formats
 ///////////////////////////////////
@@ -271,65 +271,27 @@ function nav_id_filter($id, $item) {
 add_filter('nav_menu_item_id','nav_id_filter',10,2 );
 
 ///////////////////////////////////
-// Check user entered URLs
-///////////////////////////////////
-
-/*
-used to create appropriate links from user-entered urls
-
-parameters:
-	$link = link the user entered (will be set to javascript:void(0); if left empty)
-	$text = text to show up as a link (required)
-	$title = optional title attribute for link (will be set to text if left empty)
-	$options = associative array of extra attributes (will be set to an empty array if no array is included as a parameter)
-		example:
-			$opt_array = array(
-				'target' => '_blank',
-				'class' => 'portfolio-link',
-			);
-	
-use this function like this:  $link = social_anchor($link,$text,$title,$options);
-*/
-
-function social_anchor($link = '', $text, $title = '', $options = array()) {
-	//set array for commonly-used TLD's, add more as they come up
-	$tld = array('.com','.org','.net','.us','.co.uk','.biz','.mobi','.me','.info','.edu','.gov','.mil');
-	//set extra attributes to null
-	$add_atts = '';
-	//loop through options array and add them to the extra attributes string
-	foreach($options as $att => $val) { 
-		$add_atts .= ' ' . $att . '="' . $val . '"';
-	}
-	//if there is no title, the link text becomes the title
-	if(!$title) { $title = $text; }
-	//check for http://, https://, ftp://, and /
-	if(substr($link,0,7) == "http://" || substr($link,0,8) == "https://" || substr($link,0,1) == "/" || substr($link,0,6) == "ftp://") {	
-		$href = 'href="' . $link . '"';
-	//if it starts with www. or ends with one of the pre-defined TLDs we set up earlier
-	} elseif(substr($link,0,4) == "www." || in_array(substr($link,-4),$tld)) {
-		$href = 'href="http://' . $link . '"';
-	//if it has no http:// or www. or TLD it is probably internal, so let's add a slash and call it a day
-	} elseif($link != '') {
-		$href = 'href="/' . $link . '"';
-	//if the link is null, set href to javascript:void(0);
-	} else {
-		$href = 'href="javascript:void(0);"';
-	}
-	$link = '<a' . $add_atts . ' ' . $href . '" title="' . $title . '">' . $text . '</a>';
-	//return the formatted link
-	return $link;
-}
-
-///////////////////////////////////
 // Enqueue Register Script
 ///////////////////////////////////
 
+///////////////////////////////////
+// Enqueue/Register Scripts
+///////////////////////////////////
+
+/* ----- Modernizr ----- */
+wp_register_script('modernizr', get_stylesheet_directory_uri() . '/_/js/modernizr.min.js', '', '2.6.2', false);
 /* ----- Facebook JS ----- */
-//wp_register_script('facebook',get_stylesheet_directory_uri() . "/_/js/fb.js",'','',true);
-//wp_enqueue_script('facebook');
+wp_register_script('facebook',get_stylesheet_directory_uri() . '/_/js/fb.min.js','','',true);
+/* ----- Functions ----- */
+wp_register_script('functions', get_stylesheet_directory_uri() . '/_/js/functions.min.js', array('jquery', 'rainbow'), '1.0.1', true);
+
 /* ----- Pinterest JS ----- */
 //wp_register_script('pinterest','https://assets.pinterest.com/js/pinit.js','','',true);
 //wp_enqueue_script('pinterest');
 /* ----- jq-def-text JS ----- */
 //wp_register_script('jq-def-text', get_bloginfo('template_directory') . "/_/js/jquery.def-text/jquery.def-text-1.3.min.js", array('jquery'), '1.3', true);
 //wp_enqueue_script('jq-def-text');
+
+wp_enqueue_script('modernizr');
+wp_enqueue_script('functions');
+wp_enqueue_script('facebook');
