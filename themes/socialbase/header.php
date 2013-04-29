@@ -37,9 +37,9 @@
 		} ?>
 	
 	">
-	<meta name="description" content="<?php bloginfo('description'); ?>">
-	<meta name="author" content="Ryan Quincy">
-	<meta name="Copyright" content="Copyright Ryan Quincy <?php echo date('Y'); ?>. All Rights Reserved.">
+	<!-- Use Yoast SEO plug-in to generate description meta -->
+	<meta name="author" content="[Client Name]">
+	<meta name="Copyright" content="Copyright [Client Name] [Year]. All Rights Reserved.">
 	<title>
 
 		<?php if (function_exists('is_tag') && is_tag()) {
@@ -63,11 +63,21 @@
 
 	</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
-	<link rel="stylesheet" href="<?php bloginfo('template_directory'); ?>/_/css/socialbase.css" />
+
+	<script type="text/javascript">
+		(function() {
+			var config = {
+				//change the kitId below to the correct typekit id
+				kitId : 'fvq8pye',
+				scriptTimeout : 3000
+			};
+			var h=document.getElementsByTagName("html")[0];h.className+=" wf-loading";var t=setTimeout(function(){h.className=h.className.replace(/(\s|^)wf-loading(\s|$)/g," ");h.className+=" wf-inactive"},config.scriptTimeout);var tk=document.createElement("script"),d=false;tk.src='//use.typekit.net/'+config.kitId+'.js';tk.type="text/javascript";tk.async="true";tk.onload=tk.onreadystatechange=function(){var a=this.readyState;if(d||a&&a!="complete"&&a!="loaded")return;d=true;clearTimeout(t);try{Typekit.load(config)}catch(b){}};var s=document.getElementsByTagName("script")[0];s.parentNode.insertBefore(tk,s)
+		})();
+	</script>
+
+	<link rel="stylesheet" href="<?php bloginfo('template_directory'); ?>/_/css/theme.css" />
 	<link rel="shortcut icon" href="<?php bloginfo('template_directory'); ?>/_/img/favicon.ico">
 	<link rel="apple-touch-icon" href="<?php bloginfo('template_directory'); ?>/_/img/apple-touch-icon.png" />
-	
-	<script type="text/javascript" src="<?php bloginfo('template_directory'); ?>/_/js/modernizr.min.js"></script>
 
 	<?php wp_head(); ?>
 
@@ -84,22 +94,17 @@
 		</h1>
 		<nav class="nav-menu">
 
-			<?php //check transient cache for menu first
-			$local_nav = get_transient('primary_nav');
-			//if we didn't find it
-			if(false === ($local_nav)) {
-				$defaults = array(
-					'theme_location' => 'primary',
-					'container' => 'false',
-					'fallback_cb' => 'wp_page_menu',
-					'items_wrap' => "\n".'<ul>'."\n".'%3$s</ul>'."\n",
-					'depth' => 0,
-					'echo' => 0
-				);
-				$local_nav = wp_nav_menu($defaults);
-				//set the transient
-				set_transient('primary_nav',$local_nav,3600*6);
-			}
+			<?php //build nav menu
+			$defaults = array(
+				'theme_location' => 'primary',
+				'container' => 'false',
+				'fallback_cb' => 'wp_page_menu',
+				'items_wrap' => "\n".'<ul>'."\n".'%3$s</ul>'."\n",
+				'depth' => 0,
+				'echo' => 0
+			);
+			$local_nav = wp_nav_menu($defaults);
+
 			echo $local_nav; ?>
 
 		</nav>
