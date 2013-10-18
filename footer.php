@@ -18,6 +18,7 @@
 			// ]]>
 		</script>
 		-->
+
 		<!-- Google+ script
 		<script type="text/javascript">
 			// <![CDATA[
@@ -29,6 +30,7 @@
 			// ]]>
 		</script>
 		-->
+
 		<!-- Google Analytics script
 		<script type="text/javascript">
 			// <![CDATA[
@@ -47,6 +49,5 @@
 		</script>
 		-->
 
-		<script src="<?php bloginfo('template_directory'); ?>/_/js/functions.js"></script>
 	</body>
 </html>

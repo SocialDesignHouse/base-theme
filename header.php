@@ -8,6 +8,10 @@
 	<meta charset="<?php bloginfo('charset'); ?>">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
+	<?php //set title separator here
+	$title_sep = ' | ';
+	?>
+
 	<?php if (is_search()) { ?>
 
 		<meta name="robots" content="noindex, nofollow" />
@@ -18,22 +22,22 @@
 
 		<?php //format title
 		if (function_exists('is_tag') && is_tag()) {
-			single_tag_title("Tag Archive for &quot;"); echo '&quot; - ';
+			single_tag_title("Tag Archive for &quot;"); echo '&quot;' . $title_sep;
 		} elseif (is_archive()) {
-			wp_title(''); echo ' Archive - ';
+			wp_title(''); echo ' Archive' . $title_sep;
 		} elseif (is_search()) {
-			echo 'Search for &quot;'.wp_specialchars($s).'&quot; - ';
+			echo 'Search for &quot;'.wp_specialchars($s).'&quot;' . $title_sep;
 		} elseif (!(is_404()) && (is_single()) || (is_page())) {
-			wp_title(''); echo ' - ';
+			wp_title(''); echo  $title_sep;
 		} elseif (is_404()) {
-			echo 'Not Found - ';
+			echo 'Not Found' . $title_sep;
 		} if (is_home()) {
-			bloginfo('name'); echo ' - '; bloginfo('description');
+			bloginfo('name'); echo $title_sep; bloginfo('description');
 		} else {
 			bloginfo('name');
 		}
 		if ($paged>1) {
-			echo ' - page '. $paged;
+			echo $tile_sep . 'page '. $paged;
 		} ?>
 
 	">
@@ -43,22 +47,22 @@
 	<title>
 
 		<?php if (function_exists('is_tag') && is_tag()) {
-			single_tag_title("Tag Archive for &quot;"); echo '&quot; - ';
+			single_tag_title("Tag Archive for &quot;"); echo '&quot;' . $title_sep;
 		} elseif (is_archive()) {
-			wp_title(''); echo ' Archive - ';
+			wp_title(''); echo ' Archive' . $title_sep;
 		} elseif (is_search()) {
-			echo 'Search for &quot;'.wp_specialchars($s).'&quot; - ';
+			echo 'Search for &quot;'.wp_specialchars($s).'&quot;' . $title_sep;
 		} elseif (!(is_404()) && (is_single()) || (is_page()) && !is_page('Home')) {
-			wp_title(''); echo ' - ';
+			wp_title(''); echo $title_sep;
 		} elseif (is_404()) {
-			echo 'Not Found - ';
+			echo 'Not Found' . $title_sep;
 		}
 		if (is_front_page()) {
-			bloginfo('name'); echo ' - '; bloginfo('description');
+			bloginfo('name'); echo $title_sep; bloginfo('description');
 		} else {
 			bloginfo('name');
 		} if ($paged > 1) {
-			echo ' - page '. $paged;
+			echo $title_sep . 'page '. $paged;
 		} ?>
 
 	</title>
@@ -77,7 +81,6 @@
 	</script>
 	-->
 
-	<link rel="stylesheet" href="<?php bloginfo('template_directory'); ?>/_/css/theme.css" />
 	<link rel="shortcut icon" href="<?php bloginfo('template_directory'); ?>/_/img/favicon.ico">
 	<link rel="apple-touch-icon" href="<?php bloginfo('template_directory'); ?>/_/img/apple-touch-icon.png" />
 
@@ -102,12 +105,10 @@
 				'container' => 'false',
 				'fallback_cb' => 'wp_page_menu',
 				'items_wrap' => "\n".'<ul>'."\n".'%3$s</ul>'."\n",
-				'depth' => 0,
-				'echo' => 0
+				'depth' => 0
 			);
-			$local_nav = wp_nav_menu($defaults);
 
-			echo $local_nav; ?>
+			wp_nav_menu($defaults); ?>
 
 		</nav>
 	</header>

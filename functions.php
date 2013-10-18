@@ -21,7 +21,8 @@ add_theme_support('automatic-feed-links');
 // Add custom nav menu location
 //////////////////////////////////
 
-//set nav menu
+//set nav menus
+//add other nav menu locations as needed
 function register_my_menus() {
 	register_nav_menus(
 		array(
@@ -29,6 +30,7 @@ function register_my_menus() {
 		)
 	);
 }
+
 //run this on init action
 add_action('init','register_my_menus');
 
@@ -40,6 +42,7 @@ function remove_media_link( $form_fields, $post ) {
 	unset( $form_fields['url'] );
 	return $form_fields;
 }
+
 add_filter( 'attachment_fields_to_edit', 'remove_media_link', 10, 2 );
 
 ///////////////////////////////////
@@ -62,7 +65,7 @@ if ( !is_admin() ) {
 	---------------------------------------------------------------------------------------------*/
 
 	// jQuery via Google CDN With Local Fall Back
-	$v = '1.8.1'; //you must update this to the most recent version of jQuery
+	$v = '1.8.1'; //you should update this to the most recent version of jQuery
 	// the URL to check against
 	$url = 'http://ajax.googleapis.com/ajax/libs/jquery/' . $v . '/jquery.min.js';
 	// test parameters
@@ -165,6 +168,7 @@ function removeHeadLinks() {
 	remove_action( 'wp_head', 'rel_canonical');
 	remove_action( 'wp_head', 'wp_generator' ); // Display the XHTML generator that is generated on the wp_head hook, WP version
 }
+
 add_action('init', 'removeHeadLinks');
 
 remove_action('wp_head', 'wp_generator');
@@ -183,8 +187,9 @@ function disable_default_dashboard_widgets() {
 	remove_meta_box('dashboard_recent_drafts', 'dashboard', 'core');
 	remove_meta_box('dashboard_primary', 'dashboard', 'core');
 	remove_meta_box('dashboard_secondary', 'dashboard', 'core');
-	//remove_meta_box('meandmymac_rss_widget', 'dashboard', 'normal'); //AdRotate
+	//remove_meta_box('meandmymac_rss_widget', 'dashboard', 'normal'); //AdRotate RSS
 }
+
 add_action('admin_menu', 'disable_default_dashboard_widgets');
 
 function hide_welcome_screen() {
@@ -193,6 +198,7 @@ function hide_welcome_screen() {
 	if ( 1 == get_user_meta( $user_id, 'show_welcome_panel', true ) )
 		update_user_meta( $user_id, 'show_welcome_panel', 0 );
 }
+
 add_action( 'load-index.php', 'hide_welcome_screen' );
 
 ///////////////////////////////////
@@ -205,6 +211,7 @@ function run_chk_usr_lvl($matches) {
 		remove_action('admin_notices', 'update_nag', 3);
 	}
 }
+
 add_action('admin_init', 'run_chk_usr_lvl');
 
 ///////////////////////////////////
@@ -213,9 +220,9 @@ add_action('admin_init', 'run_chk_usr_lvl');
 
 if (function_exists('register_sidebar')) {
 	register_sidebar(array(
-		'name' => __('Sidebar Widgets','socialbase' ),
+		'name' => __('Sidebar Widgets', 'socialbase'),
 		'id' => 'sidebar-widgets',
-		'description' => __( 'These are widgets for the sidebar.','socialbase' ),
+		'description' => __( 'These are widgets for the sidebar.', 'socialbase' ),
 		'before_widget' => '<div id="%1$s" class="widget %2$s">',
 		'after_widget' => '</div>',
 		'before_title' => '<h2>',
@@ -224,7 +231,7 @@ if (function_exists('register_sidebar')) {
 }
 
 ///////////////////////////////////
-// Remove Wordpress Version for Security
+// Remove Wordpress Version
 ///////////////////////////////////
 
 function complete_version_removal() {
@@ -258,12 +265,6 @@ add_filter('body_class','add_body_class');
 // Add page id as nav html IDs
 ///////////////////////////////////
 
-function nav_class_filter( $var ) {
-	return is_array($var) ? array_intersect($var, array('current-menu-ancestor','current-menu-parent','current-page-parent','current-menu-item','current-page-ancestor','current-page-item')) : '';
-}
-
-add_filter('nav_menu_css_class','nav_class_filter',100, 1);
-
 function nav_id_filter($id, $item) {
 	return 'nav-' . $item->object_id;
 }
@@ -271,20 +272,34 @@ function nav_id_filter($id, $item) {
 add_filter('nav_menu_item_id','nav_id_filter',10,2 );
 
 ///////////////////////////////////
-// Enqueue Register Script
+// Filter out unwanted current-menu states
 ///////////////////////////////////
 
+function nav_class_filter( $var ) {
+	return is_array($var) ? array_intersect($var, array('current-menu-ancestor','current-menu-parent','current-page-parent','current-menu-item','current-page-ancestor','current-page-item')) : '';
+}
+
+add_filter('nav_menu_css_class','nav_class_filter',100, 1);
+
 ///////////////////////////////////
-// Enqueue/Register Scripts
+// Enqueue/Register Scripts & Styles
 ///////////////////////////////////
 
-/* ----- Modernizr ----- */
-wp_register_script('modernizr', get_stylesheet_directory_uri() . '/_/js/modernizr.min.js', '', '2.6.2', false);
-/* ----- Facebook JS ----- */
-wp_register_script('facebook',get_stylesheet_directory_uri() . '/_/js/fb.min.js','','',true);
-/* ----- Functions ----- */
-wp_register_script('functions', get_stylesheet_directory_uri() . '/_/js/functions.min.js', array('jquery', 'rainbow'), '1.0.1', true);
+function social_enqueue_scripts_styles() {
+	//JavaScript
+	wp_register_script('modernizr', get_stylesheet_directory_uri() . '/_/js/modernizr.min.js', array(), '2.6.2', false);
+	wp_register_script('functions', get_stylesheet_directory_uri() . '/_/js/functions.min.js', array('jquery'), '1.0.1', true);
+	//wp_register_script('facebook',get_stylesheet_directory_uri() . '/_/js/fb.min.js','','',true);
 
-wp_enqueue_script('modernizr');
-wp_enqueue_script('functions');
-wp_enqueue_script('facebook');
+	wp_enqueue_script('modernizr');
+	wp_enqueue_script('functions');
+	//wp_enqueue_script('facebook');
+
+	//CSS
+	//put any links to external CSS files for typefaces here as well, be sure to add them to the dependency array for the theme stylesheet
+	wp_register_style('theme', get_stylesheet_directory_uri() . '/_/css/theme.css', array(), '1.0.0', 'all');
+
+	wp_enqueue_style('theme');
+}
+
+add_action('wp_enqueue_scripts', 'social_enqueue_scripts_styles');
