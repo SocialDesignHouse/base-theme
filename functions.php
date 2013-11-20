@@ -49,45 +49,49 @@ add_filter( 'attachment_fields_to_edit', 'remove_media_link', 10, 2 );
 // Load jQuery (must be /_/js/jquery.min.js)
 ///////////////////////////////////
 
-if ( !is_admin() ) {
-	/*---------------------------------------------------------------------------------------------
+function add_scripts_styles() {
+	if ( !is_admin() ) {
+		/*---------------------------------------------------------------------------------------------
 
-		This snippet loads jQuery via Google, but falls back to a locally hosted copy
-		if necessary.
+			This snippet loads jQuery via Google, but falls back to a locally hosted copy
+			if necessary.
 
-		It was modified from:
+			It was modified from:
 
-		http://wpshock.com/wordpress-load-jquery-from-google-libraries-cdn-with-local-jquery-fallback/
+			http://wpshock.com/wordpress-load-jquery-from-google-libraries-cdn-with-local-jquery-fallback/
 
-		There have been adjustments to make the code better suited for our purposes and also some
-		formatting adjustments to make the code follow our style guidelines.
+			There have been adjustments to make the code better suited for our purposes and also some
+			formatting adjustments to make the code follow our style guidelines.
 
-	---------------------------------------------------------------------------------------------*/
+		---------------------------------------------------------------------------------------------*/
 
-	// jQuery via Google CDN With Local Fall Back
-	$v = '1.8.1'; //you should update this to the most recent version of jQuery
-	// the URL to check against
-	$url = 'http://ajax.googleapis.com/ajax/libs/jquery/' . $v . '/jquery.min.js';
-	// test parameters
-	$test_url = @fopen($url,'r');
-	// test if the URL exists
-	if($test_url !== false) {
-		// deregisters the default WordPress jQuery
-		wp_deregister_script( 'jquery' );
-		// register the external file
-		wp_register_script('jquery', $url, '', $v, true);
-		// enqueue the external file
-		wp_enqueue_script('jquery');
-	} else {
-		// enqueue the local file
-		wp_deregister_script("jquery");
-		// register the external file
-		wp_register_script("jquery",get_template_directory() . '/_/js/jquery.min.js', '', $v, true);
-		// enqueue the external file
-		wp_enqueue_script('jquery');
+		// jQuery via Google CDN With Local Fall Back
+		$v = '1.8.1'; //you should update this to the most recent version of jQuery
+		// the URL to check against
+		$url = 'http://ajax.googleapis.com/ajax/libs/jquery/' . $v . '/jquery.min.js';
+		// test parameters
+		$test_url = @fopen($url,'r');
+		// test if the URL exists
+		if($test_url !== false) {
+			// deregisters the default WordPress jQuery
+			wp_deregister_script( 'jquery' );
+			// register the external file
+			wp_register_script('jquery', $url, '', $v, true);
+			// enqueue the external file
+			wp_enqueue_script('jquery');
+		} else {
+			// enqueue the local file
+			wp_deregister_script("jquery");
+			// register the external file
+			wp_register_script("jquery",get_template_directory() . '/_/js/jquery.min.js', '', $v, true);
+			// enqueue the external file
+			wp_enqueue_script('jquery');
+		}
+		// END wpshock.com modified code
 	}
-	// END wpshock.com modified code
 }
+
+add_action('wp_enqueue_scripts', 'add_scripts_styles');
 
 ///////////////////////////////////
 // Hide Admin Bar
