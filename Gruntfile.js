@@ -57,5 +57,5 @@ module.exports = function(grunt) {
 
 	grunt.loadNpmTasks('grunt-modernizr');
 
-	grunt.registerTask('setup', ['modernizr']);
+	grunt.registerTask('default', ['modernizr']);
 };

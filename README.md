@@ -19,8 +19,8 @@ These instructions will follow the general way that we set up our project and wi
 7. Choose n to install WordPress as a submodule
 8. Choose n to use a custom directory structure
 9. Choose Y to install a theme
-10. Choose git as the theme type
 10. The directory for the theme will be `socialbase`
+10. Choose git as the theme type
 11. The username: `SocialDesignHouse`
 12. The repo name: `base-theme`
 13. The branch: master
@@ -28,5 +28,7 @@ These instructions will follow the general way that we set up our project and wi
 
 Notes
 ===
+
+When YeoPress installs the theme it will run the `default` task in grunt. Right now this task just uses `grunt-modernizr` to build a production ready version of Modernizr with the basics for you. You can customize the settings in `Gruntfile.js` and run `grunt modernizr` at any time to create a new customized version of Modernizr for your project.
 
 When you need to perform ajax calls that will need to be fast and may transfer a large amount of data, utilize the ajax-custom.php file as your AJAX URL instead of the admin-ajax.php file.
