@@ -1,0 +1,24 @@
+
+	//follow the general guidelines laid our here:  http://csswizardry.com/2013/04/shame-css/
+
+	/*-----
+	RULES
+
+	If it’s a hack, it goes in _shame.scss.
+
+	Document all hacks fully:
+		1) What part of the codebase does it relate to?
+		2) Why was this needed?
+		3) How does this fix it?
+		4) How might you fix it properly, given more time?
+
+	Do not blame the developer; if they explained why they had to do it then their reasons are probably (hopefully) valid.
+
+	Try and clean _shame.scss up when you have some down time.
+
+	Even better, get a tech-debt story in which you can dedicate actual sprint time to it.
+
+	The name is purely comical, there is no real shame in a hack. We all write a hack at some point pre- or post-production.
+
+	This way the hacks are easy to find, though.
+	-----*/

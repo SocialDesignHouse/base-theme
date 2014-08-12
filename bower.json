@@ -1,0 +1,24 @@
+{
+  "name": "social-base-theme",
+  "version": "2.0.1",
+  "authors": [
+    "Social Design House <info@socialdesignhouse.com>"
+  ],
+  "description": "Base WordPress theme for Social Design House",
+  "keywords": [
+    "Wordpress",
+    "Base",
+    "HTML5Reset",
+    "boilerplate"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/SocialDesignHouse/base-theme",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}

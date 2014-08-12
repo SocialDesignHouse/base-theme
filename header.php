@@ -9,8 +9,7 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
 	<?php //set title separator here
-	$title_sep = ' | ';
-	?>
+	$title_sep = ' | '; ?>
 
 	<?php if (is_search()) { ?>
 
@@ -28,14 +27,15 @@
 		} elseif (is_search()) {
 			echo 'Search for &quot;'.wp_specialchars($s).'&quot;' . $title_sep;
 		} elseif (!(is_404()) && (is_single()) || (is_page())) {
-			wp_title(''); echo  $title_sep;
+			wp_title(''); echo $title_sep;
 		} elseif (is_404()) {
 			echo 'Not Found' . $title_sep;
-		} if (is_home()) {
+		} elseif (is_home()) {
 			bloginfo('name'); echo $title_sep; bloginfo('description');
 		} else {
 			bloginfo('name');
 		}
+
 		if ($paged>1) {
 			echo $tile_sep . 'page '. $paged;
 		} ?>
@@ -56,19 +56,20 @@
 			wp_title(''); echo $title_sep;
 		} elseif (is_404()) {
 			echo 'Not Found' . $title_sep;
-		}
-		if (is_front_page()) {
+		} elseif (is_front_page()) {
 			bloginfo('name'); echo $title_sep; bloginfo('description');
 		} else {
 			bloginfo('name');
-		} if ($paged > 1) {
+		}
+
+		if ($paged > 1) {
 			echo $title_sep . 'page '. $paged;
 		} ?>
 
 	</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
 
-	<!-- TypeKit code
+	<!-- TypeKit load | REMOVE if not needed
 	<script type="text/javascript">
 		(function() {
 			var config = {

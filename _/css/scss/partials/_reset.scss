@@ -1,230 +1,286 @@
+/*! HTML5 Reset */
 
-	html, body, body div, span, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, abbr, address, cite, code, del, dfn, em, img, ins, kbd, q, samp, small, strong, sub, sup, var, b, i, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, figure, footer, header, hgroup, menu, nav, section, time, mark, audio, video {
-		margin: 0;
-		padding: 0;
-		border: 0;
-		outline: 0;
-		font-size: 100%;
-		vertical-align: baseline;
-		background: transparent;
-	}									
+/*-------------------------------------------------------------------------------
+	We have learned much from/been inspired by/taken code where offered from:
 
-	article, aside, figure, footer, header, hgroup, nav, section {
-		display: block;
-	}
+	Eric Meyer			:: http://meyerweb.com
+	HTML5 Doctor			:: http://html5doctor.com
+	and the HTML5 Boilerplate	:: http://html5boilerplate.com
 
-	/* Responsive images and other embedded objects */
-	img, object, embed, audio, video {
-		max-width: 100%;
-	}
+-------------------------------------------------------------------------------*/
 
-	/* force a vertical scrollbar to prevent a jumpy page */
-	html {
-		overflow-y: scroll;
-	}
+html, body, body div, span, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, abbr, address, cite, code, del, dfn, em, img, ins, kbd, q, samp, small, strong, sub, sup, var, b, i, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, figure, footer, header, menu, nav, section, time, mark, audio, video, details, summary {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font-weight: normal;
+	vertical-align: baseline;
+	background: transparent;
+}
 
-	/* we use a lot of ULs that aren't bulleted. */
-	ul { 
-		list-style: none;
-	}
+article, aside, figure, footer, header, nav, section, details, summary {
+	display: block;
+}
 
-	blockquote, q {
-		quotes: none;
-	}
+/* Handle box-sizing while better addressing child elements:
+	http://css-tricks.com/inheriting-box-sizing-probably-slightly-better-best-practice/ */
+html {
+	box-sizing: border-box;
+}
 
-	blockquote:before, 
-	blockquote:after, 
-	q:before,
-	q:after {
-		content: '';
-		content: none;
-	}
+*,
+*:before,
+*:after {
+	box-sizing: inherit;
+}
 
-	a {
-		margin: 0;
-		padding: 0;
-		font-size: 100%;
-		vertical-align: baseline;
-		background: transparent;
-	}
+/* resetting the default cursor: https://gist.github.com/murtaugh/5247154 */
+html,
+body {
+	cursor: default;
+}
 
-	del { 
-		text-decoration: line-through;
-	}
+code {
+	cursor: text;
+}
 
-	abbr[title], dfn[title] {
-		border-bottom: 1px dotted #000;
-		cursor: help;
-	}
+/*
+textarea and input[type="text"] already receive
+"cursor: text" via browsers' base stylesheets
+*/
+a,
+label,
+button,
+input[type="radio"],
+input[type="submit"],
+input[type="checkbox"],
+.clickable,
+input[type="button"],
+input[type="file"],  {
+	cursor: pointer;
+}
 
-	/* tables still need cellspacing="0" in the markup */
-	table {
-		border-collapse: collapse;
-		border-spacing: 0;
-	}
+button[disabled],
+input[disabled] {
+	cursor: default;
+}
 
-	th {
-		font-weight: bold;
-		vertical-align: bottom;
-	}
+/* Responsive images and other embedded objects
+   Note: keeping IMG here will cause problems if you're using foreground images as sprites.
+   If this default setting for images is causing issues, you might want to replace it with a .responsive class instead. */
+img,
+object,
+embed {
+	max-width: 100%;
+}
 
-	td {
-		font-weight: normal;
-		vertical-align: top;
-	}
+/* force a vertical scrollbar to prevent a jumpy page */
+html {
+	overflow-y: scroll;
+}
 
-	hr {
-		display: block;
-		height: 1px;
-		border: 0;
-		border-top: 1px solid #ccc;
-		margin: 1em 0;
-		padding: 0;
-	}
+/* we use a lot of ULs that aren't bulleted.
+	don't forget to restore the bullets within content. */
+ul {
+	list-style: none;
+}
 
-	input, select {
-		vertical-align: middle;
-	}
+blockquote, q {
+	quotes: none;
+}
 
-	pre {
-		white-space: pre; /* CSS2 */
-		white-space: pre-wrap; /* CSS 2.1 */
-		white-space: pre-line; /* CSS 3 (and 2.1 as well, actually) */
-		word-wrap: break-word; /* IE */
-	}
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
+	content: ''; content: none;
+}
 
-	input[type="radio"] {
-		vertical-align: text-bottom;
-	}
+a {
+	margin: 0;
+	padding: 0;
+	font-size: 100%;
+	vertical-align: baseline;
+	background: transparent;
+}
 
-	input[type="checkbox"] {
-		vertical-align: bottom;
-		*vertical-align: baseline;
-	}
+del {
+	text-decoration: line-through;
+}
 
-	.ie6 input {
-		vertical-align: text-bottom;
-	}
+abbr[title], dfn[title] {
+	border-bottom: 1px dotted #000;
+	cursor: help;
+}
 
-	select, input, textarea {
-		font: 99% sans-serif;
-	}
+/* tables still need cellspacing="0" in the markup */
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
 
-	table {
-		font-size: inherit;
-		font: 100%;
-	}
+th {
+	font-weight: bold;
+	vertical-align: bottom;
+}
 
-	/* Accessible focus treatment */
-	a:hover, a:active {
-		outline: none;
-	}
+td {
+	font-weight: normal;
+	vertical-align: top;
+}
 
-	small {
-		font-size: 85%;
-	}
+hr {
+	display: block;
+	height: 1px;
+	border: 0;
+	border-top: 1px solid #ccc;
+	margin: 1em 0;
+	padding: 0;
+}
 
-	strong, th {
-		font-weight: bold;
-	}
+input, select {
+	vertical-align: middle;
+}
 
-	td, td img {
-		vertical-align: top;
-	} 
+pre {
+	white-space: pre; /* CSS2 */
+	white-space: pre-wrap; /* CSS 2.1 */
+	white-space: pre-line; /* CSS 3 (and 2.1 as well, actually) */
+	word-wrap: break-word; /* IE */
+}
 
-	/* Make sure sup and sub don't mess with your line-heights */
-	sub, sup {
-		font-size: 75%;
-		line-height: 0;
-		position: relative;
-	}
+input[type="radio"] {
+	vertical-align: text-bottom;
+}
 
-	sup {
-		top: -0.5em;
-	}
+input[type="checkbox"] {
+	vertical-align: bottom;
+}
 
-	sub {
-		bottom: -0.25em;
-	}
+.ie7 input[type="checkbox"] {
+	vertical-align: baseline;
+}
 
-	/* standardize any monospaced elements */
-	pre, code, kbd, samp {
-		font-family: monospace, sans-serif;
-	}
+.ie6 input {
+	vertical-align: text-bottom;
+}
 
-	/* hand cursor on clickable elements */
-	.clickable,
-	label, 
-	input[type=button], 
-	input[type=submit], 
-	button {
-		cursor: pointer;
-	}
+select, input, textarea {
+	font: 99% sans-serif;
+}
 
-	/* Webkit browsers add a 2px margin outside the chrome of form elements */
-	button, input, select, textarea {
-		margin: 0;
-	}
+table {
+	font-size: inherit;
+	font: 100%;
+}
 
-	/* make buttons play nice in IE */
-	button {
-		width: auto;
-		overflow: visible;
-	}
+small {
+	font-size: 85%;
+}
 
-	/* scale images in IE7 more attractively */
-	.ie7 img {
-		-ms-interpolation-mode: bicubic;
-	}
+strong {
+	font-weight: bold;
+}
 
-	/* prevent BG image flicker upon hover */
-	.ie6 html {
-		filter: expression(document.execCommand("BackgroundImageCache", false, true));
-	}
+td, td img {
+	vertical-align: top;
+}
 
-	/* clear floats */
-	.clearfix:before,
-	.clearfix:after {
-		content: "\0020";
-		display: block;
-		height: 0;
-		overflow: hidden;
-	}  
+/* Make sure sup and sub don't mess with your line-heights http://gist.github.com/413930 */
+sub, sup {
+	font-size: 75%;
+	line-height: 0;
+	position: relative;
+}
 
-	.clearfix:after {
-		clear: both;
-	}  
+sup {
+	top: -0.5em;
+}
 
-	.clearfix {
-		zoom: 1;
-	}
+sub {
+	bottom: -0.25em;
+}
 
-	/* text styles */
+/* standardize any monospaced elements */
+pre, code, kbd, samp {
+	font-family: monospace, sans-serif;
+}
 
-	h1, h2, h3, h4, h5, p {
-		margin: 0 0 15px 0;
-	}
+/* Webkit browsers add a 2px margin outside the chrome of form elements */
+button, input, select, textarea {
+	margin: 0;
+}
 
-	h1 {
-		font-size: 36px;
-	}
+/* make buttons play nice in IE */
+button,
+input[type=button] {
+	width: auto; overflow: visible;
+}
 
-	h2 {
-		font-size: 24px;
-	}
+/* scale images in IE7 more attractively */
+.ie7 img {
+	-ms-interpolation-mode: bicubic;
+}
 
-	h3 {
-		font-size: 18px;
-	}
+/* prevent BG image flicker upon hover
+   (commented out as usage is rare, and the filter syntax messes with some pre-processors)
+.ie6 html {filter: expression(document.execCommand("BackgroundImageCache", false, true));}
+*/
 
-	h4 {
-		font-size: 14px;
-	}
+/** Micro clearfix from:  http://nicolasgallagher.com/micro-clearfix-hack/
+ * For modern browsers
+ * 1. The space content is one way to avoid an Opera bug when the
+ *    contenteditable attribute is included anywhere else in the document.
+ *    Otherwise it causes space to appear at the top and bottom of elements
+ *    that are clearfixed.
+ * 2. The use of `table` rather than `block` is only necessary if using
+ *    `:before` to contain the top-margins of child elements.
+ */
+.cf:before,
+.cf:after {
+	content: " "; /* 1 */
+	display: table; /* 2 */
+}
 
-	h5 {
-		font-size: 12px;
-	}
+.cf:after {
+	clear: both;
+}
 
-	p {
-		font-size: 14px;
-	}
+/**
+ * For IE 6/7 only
+ * Include this rule to trigger hasLayout and contain floats.
+ */
+.cf {
+	*zoom: 1;
+}
+
+/* text styles */
+
+h1, h2, h3, h4, h5, p {
+	margin: 0 0 15px 0;
+}
+
+h1 {
+	font-size: 36px;
+}
+
+h2 {
+	font-size: 24px;
+}
+
+h3 {
+	font-size: 18px;
+}
+
+h4 {
+	font-size: 14px;
+}
+
+h5 {
+	font-size: 12px;
+}
+
+p {
+	font-size: 14px;
+}

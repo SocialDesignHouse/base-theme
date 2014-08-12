@@ -1,2 +1,12 @@
 
-	@import 'partials/_reset.scss';
+	@import 'suzy'; //use suzy for your grid
+	@import 'breakpoint'; //use breakpoint for media queries
+	@import 'compass'; //use compass for prefixing and some of it's methods
+
+	@import 'partials/_reset.scss'; //keep this rest at the top
+	@import 'partials/_vars.scss'; //declare any SASS variables in this file
+
+	//add your imports here
+	//if you need something lower in the cascade than any hacks, feel free to add imports below _shame.scss
+
+	@import 'partials/_shame.scss'; //any hacks should go here
