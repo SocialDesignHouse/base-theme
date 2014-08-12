@@ -1,5 +1,8 @@
 module.exports = function(grunt) {
-	grunt.initConfig({
+	grunt.loadNpmTasks('grunt-modernizr');
+
+
+	grunt.registerTask('setup', function() {
 		modernizr: {
 			dist: {
 				// [REQUIRED] Path to the build you're using for development.
@@ -55,6 +58,4 @@ module.exports = function(grunt) {
 
 		}
 	});
-
-	grunt.loadNpmTasks('grunt-modernizr');
 };

@@ -6,9 +6,25 @@ The Base WordPress theme we start our projects with. It is a modified version of
 Instructions
 =======
 
-1. Run `npm install grunt --save-dev`
-2. Run `npm install grunt-modernizr --save-dev`
-3. Run `grunt modernizr` to get your packaged Modernizr build
+We recommend using something like [YeoPress](https://github.com/wesleytodd/YeoPress) for starting your project.
+
+These instructions will follow the general way that we set up our project and will assume you have node.js, npm, git, yeoman, generator-wordpress, and grunt installed and configured.
+
+1. Run `yo wordpress`
+2. Type the URL of the site when prompted and hit Enter
+3. Go to [MakeMyPassword](http://www.makemypassword.com) and generate a 5 character alphanumeric string for the table prefix.
+4. Type or paste the 5 character string from MakeMyPassword into the terminal and add an underscore (`_`) to the end of it
+5. Follow the prompts for entering the rest of your database configuration
+6. Choose Y to initialize git
+7. Choose n to install WordPress as a submodule
+8. Choose n to use a custom directory structure
+9. Choose Y to install a theme
+10. Choose git as the theme type
+10. The directory for the theme will be `socialbase`
+11. The username: `SocialDesignHouse`
+12. The repo name: `base-theme`
+13. The branch: master
+14. If everything looks okay choose Y
 
 Notes
 ===
