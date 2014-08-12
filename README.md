@@ -1,4 +1,4 @@
-base-theme
+base-theme v2.1.1
 ==========
 
 The Base WordPress theme we start our projects with. It is a modified version of the HTML5 Reset theme.
@@ -25,10 +25,13 @@ These instructions will follow the general way that we set up our project and wi
 12. The repo name: `base-theme`
 13. The branch: master
 14. If everything looks okay choose Y
+15. If asked about overwriting, just choose Y
+16. cd into `wp-content/themes/socialbase/`
+17. Run `grunt watch` and start editing
 
 Notes
 ===
 
-When YeoPress installs the theme it will run the `default` task in grunt. Right now this task just uses `grunt-modernizr` to build a production ready version of Modernizr with the basics for you. You can customize the settings in `Gruntfile.js` and run `grunt modernizr` at any time to create a new customized version of Modernizr for your project.
+When YeoPress installs the theme it will run the `setup` task in grunt. Right now this task uses `grunt-modernizr` to build a production ready version of Modernizr with the basics for you and downloads a few basic modules from bower and moves the distribution files to te correct diretories. You can customize the settings for these in `Gruntfile.js` and run `grunt modernizr` at any time to create a new customized version of Modernizr for your project.
 
 When you need to perform ajax calls that will need to be fast and may transfer a large amount of data, utilize the ajax-custom.php file as your AJAX URL instead of the admin-ajax.php file.
