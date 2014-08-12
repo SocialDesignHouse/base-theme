@@ -55,7 +55,13 @@ module.exports = function(grunt) {
 		}
 	});
 
-	grunt.loadNpmTasks('grunt-modernizr');
+	grunt.registerTask('setup', 'Runs after YeoPress theme installation.', function() {
+		var done = this.async();
 
-	grunt.registerTask('default', ['modernizr']);
+		grunt.task.run('modernizr');
+
+		done();
+	});
+
+	grunt.loadNpmTasks('grunt-modernizr');
 };
