@@ -1,7 +1,7 @@
 
-	@import 'suzy'; //use suzy for your grid
-	@import 'breakpoint'; //use breakpoint for media queries
 	@import 'compass'; //use compass for prefixing and some of it's methods
+	@import 'susy'; //use suzy for your grid
+	@import 'breakpoint'; //use breakpoint for media queries
 
 	@import 'partials/_reset.scss'; //keep this rest at the top
 	@import 'partials/_vars.scss'; //declare any SASS variables in this file

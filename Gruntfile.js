@@ -1,14 +1,57 @@
+/*
+
+TO DO
+
+1) Reduce CSS duplication
+   - Ideally just a single build - global.scss turns into /build/global.css
+   - Can Autoprefixer output minified?
+   - If it can, is it as good as cssmin?
+   - Could Sass be used again to minify instead?
+   - If it can, is it as good as cssmin?
+
+2) Better JS dependency management
+   - Require js?
+   - Can it be like the Asset Pipeline where you just do //= require "whatever.js"
+
+3) Is HTML minification worth it?
+
+4) Set up a Jasmine test just to try it.
+
+5) Can this Gruntfile.js be abstracted into smaller parts?
+   - https://github.com/cowboy/wesbos/commit/5a2980a7818957cbaeedcd7552af9ce54e05e3fb
+
+*/
+
 module.exports = function(grunt) {
+
 	grunt.initConfig({
+
+		pkg: grunt.file.readJSON('package.json'),
+
+		uglify: {
+			build: {
+				src: ['_/js/*.js', '_/js/functions.js', '!_/js/modernizr.min.js', '!_/js/dev/modernizr.dev.js'],
+				dest: '_/js/theme.min.js'
+			}
+		},
+
+		sass: {
+			dist: {
+				options: {
+					style: 'expanded',
+					sourcemap: true,
+					compass: true
+				},
+				files: {
+					'_/css/theme.css' : '_/css/scss/theme.scss'
+				}
+			}
+		},
+
 		modernizr: {
 			dist: {
-				// [REQUIRED] Path to the build you're using for development.
 				"devFile" : "_/js/dev/modernizr.dev.js",
-
-				// [REQUIRED] Path to save out the built file.
 				"outputFile" : "_/js/modernizr.min.js",
-
-				// Based on default settings on http://modernizr.com/download/
 				"extra" : {
 					"shiv" : true,
 					"printshiv" : false,
@@ -16,8 +59,6 @@ module.exports = function(grunt) {
 					"mq" : false,
 					"cssclasses" : true
 				},
-
-				// Based on default settings on http://modernizr.com/download/
 				"extensibility" : {
 					"addtest" : false,
 					"prefixed" : false,
@@ -28,40 +69,81 @@ module.exports = function(grunt) {
 					"prefixes" : false,
 					"domprefixes" : false
 				},
-
-				// By default, source is uglified before saving
 				"uglify" : true,
-
-				// Define any tests you want to implicitly include.
 				"tests" : [],
-
-				// By default, this task will crawl your project for references to Modernizr tests.
-				// Set to false to disable.
 				"parseFiles" : true,
-
-				// When parseFiles = true, this task will crawl all *.js, *.css, *.scss files, except files that are in node_modules/.
-				// You can override this by defining a "files" array below.
-				// "files" : {
-					// "src": []
-				// },
-
-				// When parseFiles = true, matchCommunityTests = true will attempt to
-				// match user-contributed tests.
 				"matchCommunityTests" : false,
-
-				// Have custom Modernizr tests? Add paths to their location here.
 				"customTests" : []
+			}
+		},
+
+		watch: {
+			scripts: {
+				files: ['_/js/**/*.js'],
+				tasks: ['uglify'],
+				options: {
+					spawn: false
+				}
+			},
+			css: {
+				files: ['_/css/scss/**/*.scss'],
+				tasks: ['sass', 'cssmin'],
+				options: {
+					spawn: false
+				}
+			}
+		},
+
+		cssmin: {
+			minify: {
+				expand: true,
+				cwd: '_/css/',
+				src: ['*.css', '!*.min.css'],
+				dest: '_/css/',
+				ext: '.min.css'
+			}
+		},
+
+		bowercopy: {
+			options: {
+				clean: true
+			},
+			libs: {
+				options: {
+					destPrefix: '_/js'
+				},
+				files: {
+					'opt/jquery.fancyBox.js': 'fancybox/source/jquery.fancybox.js',
+					'respond.js': 'respond/src/respond.js',
+					'owl.carousel.js': 'owl-carousel/own-carousel/owl.carousel.js'
+				}
+			},
+			styles: {
+				options: {
+					destPrefix: '_/css'
+				},
+				files: {
+					'opt/jquery.fancyBox.css': 'fancybox/source/jquery.fancybox.css',
+					'owl.carousel.css': 'owl-carousel/owl-carousel/owl.carousel.css',
+					'owl.transitions.css': 'owl-carousel/owl-carousel/owl.transitions.css'
+				}
 			}
 		}
 	});
 
-	grunt.registerTask('setup', 'Runs after YeoPress theme installation.', function() {
-		var done = this.async();
-
-		grunt.task.run('modernizr');
-
-		done();
-	});
+	grunt.loadNpmTasks('grunt-contrib-uglify');
+	grunt.loadNpmTasks('grunt-contrib-sass');
+	grunt.loadNpmTasks('grunt-contrib-watch');
+	grunt.loadNpmTasks('grunt-contrib-cssmin');
 
 	grunt.loadNpmTasks('grunt-modernizr');
+	grunt.loadNpmTasks('grunt-bowercopy');
+
+	grunt.registerTask('default', ['modernizr', 'bowercopy']);
+
+	grunt.registerTask('setup', ['modernizr', 'bowercopy']);
+
+	grunt.event.on('watch', function(action, filepath, target) {
+		grunt.log.writeln(target + ': ' + filepath + ' has ' + action);
+	});
 };
