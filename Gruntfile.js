@@ -91,7 +91,7 @@ module.exports = function(grunt) {
 				files: {
 					'opt/jquery.fancyBox.js': 'fancybox/source/jquery.fancybox.js',
 					'respond.js': 'respond/src/respond.js',
-					'owl.carousel.js': 'owl-carousel/own-carousel/owl.carousel.js'
+					'owl.carousel.js': 'owl-carousel/owl-carousel/owl.carousel.js'
 				}
 			},
 			styles: {

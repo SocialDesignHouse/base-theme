@@ -2,7 +2,7 @@
 
 //Theme Setup (based on twentythirteen: http://make.wordpress.org/core/tag/twentythirteen/)
 function html5reset_setup() {
-	/ Translations can be filed in the /languages/ directory
+	//Translations can be filed in the /languages/ directory
 	load_theme_textdomain('html5reset', get_template_directory() . '/languages');
 
 	add_theme_support('automatic-feed-links');
