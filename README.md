@@ -1,4 +1,4 @@
-base-theme v2.1.1
+base-theme v2.2.0
 ==========
 
 The Base WordPress theme we start our projects with. It is a modified version of the HTML5 Reset theme.
@@ -33,5 +33,7 @@ Notes
 ===
 
 When YeoPress installs the theme it will run the `setup` task in grunt. Right now this task uses `grunt-modernizr` to build a production ready version of Modernizr with the basics for you and downloads a few basic modules from bower and moves the distribution files to te correct diretories. You can customize the settings for these in `Gruntfile.js` and run `grunt modernizr` at any time to create a new customized version of Modernizr for your project.
+
+The project is set up with grunt-notify so you can receive notifications when SASS, uglify, and/or cssmin are done running.
 
 When you need to perform ajax calls that will need to be fast and may transfer a large amount of data, utilize the ajax-custom.php file as your AJAX URL instead of the admin-ajax.php file.
