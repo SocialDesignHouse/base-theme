@@ -1,5 +1,5 @@
 module.exports = function(grunt) {
-	require('load-grunt-tasks')(grunt, {scope: ['devDepencies', 'dependencies']});
+	require('load-grunt-tasks')(grunt);
 
 	grunt.initConfig({
 
@@ -57,14 +57,14 @@ module.exports = function(grunt) {
 		watch: {
 			scripts: {
 				files: ['_/js/**/*.js'],
-				tasks: ['newer:uglify'],
+				tasks: ['newer:uglify', 'notify:scripts'],
 				options: {
 					spawn: false
 				}
 			},
 			css: {
 				files: ['_/css/scss/**/*.scss'],
-				tasks: ['sass', 'newer:cssmin'],
+				tasks: ['sass', 'newer:cssmin', 'notify:sass'],
 				options: {
 					spawn: false
 				}
@@ -108,10 +108,16 @@ module.exports = function(grunt) {
 		},
 
 		notify: {
-			watch: {
+			sass: {
 				options: {
-					title: 'Project Compiled',  // optional
-					message: 'CSS and JS compiled', //required
+					title: 'Grunt',  // optional
+					message: 'SASS compiled' //required
+				}
+			},
+			scripts: {
+				options: {
+					title: 'Grunt',  // optional
+					message: 'JavaScript concatenated and minified'
 				}
 			}
 		}
