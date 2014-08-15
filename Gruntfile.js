@@ -1,4 +1,5 @@
 module.exports = function(grunt) {
+	require('load-grunt-tasks')(grunt, {scope: ['devDepencies', 'dependencies']});
 
 	grunt.initConfig({
 
@@ -56,14 +57,14 @@ module.exports = function(grunt) {
 		watch: {
 			scripts: {
 				files: ['_/js/**/*.js'],
-				tasks: ['uglify'],
+				tasks: ['newer:uglify'],
 				options: {
 					spawn: false
 				}
 			},
 			css: {
 				files: ['_/css/scss/**/*.scss'],
-				tasks: ['sass', 'cssmin'],
+				tasks: ['sass', 'newer:cssmin'],
 				options: {
 					spawn: false
 				}
@@ -104,16 +105,17 @@ module.exports = function(grunt) {
 					'owl.transitions.css': 'owl-carousel/owl-carousel/owl.transitions.css'
 				}
 			}
+		},
+
+		notify: {
+			watch: {
+				options: {
+					title: 'Project Compiled',  // optional
+					message: 'CSS and JS compiled', //required
+				}
+			}
 		}
 	});
-
-	grunt.loadNpmTasks('grunt-contrib-uglify');
-	grunt.loadNpmTasks('grunt-contrib-sass');
-	grunt.loadNpmTasks('grunt-contrib-watch');
-	grunt.loadNpmTasks('grunt-contrib-cssmin');
-
-	grunt.loadNpmTasks('grunt-modernizr');
-	grunt.loadNpmTasks('grunt-bowercopy');
 
 	grunt.registerTask('default', ['modernizr', 'bowercopy']);
 
