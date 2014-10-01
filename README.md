@@ -8,7 +8,7 @@ Instructions
 
 We recommend using something like [YeoPress](https://github.com/wesleytodd/YeoPress) for starting your project.
 
-These instructions will follow the general way that we set up our project and will assume you have node.js, npm, git, yeoman, generator-wordpress, and grunt installed and configured.
+These instructions will follow the general way that we set up our project and will assume you have node.js, npm, git, yeoman, generator-wordpress, bundler, and grunt installed and configured.
 
 1. Run `yo wordpress`
 2. Type the URL of the site when prompted and hit Enter
@@ -27,7 +27,9 @@ These instructions will follow the general way that we set up our project and wi
 14. If everything looks okay choose Y
 15. If asked about overwriting, just choose Y
 16. cd into `wp-content/themes/socialbase/`
-17. Run `grunt watch` and start editing
+17. Run `npm install`
+18. Run `bundle install`
+19. Run `grunt watch` and start editing
 
 Notes
 ===
